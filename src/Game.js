@@ -1,0 +1,1 @@
+function createGame(keyboard, cardBlock) {}

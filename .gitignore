@@ -1,0 +1,5 @@
+*.ini
+node_modules/
+misc/
+submission/
+.idea
