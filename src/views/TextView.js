@@ -14,7 +14,7 @@ function createTextView(text, x, y, style) {
 
     function render() {
         ctx.save();
-        ctx.font = `${fontSize}px sans-serif`;
+        ctx.font = `${fontSize}px fantasy`;
         ctx.fillStyle = fill;
         ctx.fillText(text, x, y);
         if (stroke) {

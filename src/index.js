@@ -20,21 +20,27 @@ const infoTF = createTextView('', cw / 2, cardH / 1.5, {
 world.add(infoTF);
 
 let bet = 1;
-let balance = 100;
+let balance = 404;
 let deck;
 let cardsToReplace;
 let isComplete;
+let lockKeyboard;
 
-keyboard.subscribe(onKey);
 startRound();
 
 function startRound() {
+    const isInit = !lockKeyboard;
+    if (!isInit) {
+        lockKeyboard();
+    }
     isComplete = false;
     cardsToReplace = [];
     balance -= bet;
     deck = createDeck();
     const cards = deck.deal(5);
-    cardBlock.setCards(cards);
+    cardBlock.setCards(cards, isInit).then(() => {
+        lockKeyboard = keyboard.subscribe(onKey);
+    });
     balanceTF.setText(`Balance: ${balance}`);
     infoTF.setText('');
 }
@@ -75,7 +81,7 @@ function prepareDraw(index) {
 }
 
 function onKey(e) {
-    if (e.isDigit && e.digit > 0 && e.digit < 6) {
+    if (!isComplete && e.isDigit && e.digit > 0 && e.digit < 6) {
         prepareDraw(e.digit - 1);
     } else if (e.isSpace) {
         if (isComplete) {

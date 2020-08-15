@@ -18,7 +18,7 @@ function createCardView(card, x, y, w, h, margin) {
         ctx.font = `${h}px sans-serif`;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
-        ctx.fillStyle = isSelected ? 'grey' : card.color;
+        ctx.fillStyle = isSelected ? '#DCB600' : card.color;
         const text = isSelected ? back : card.string;
         ctx.fillText(text, x, y + margin);
 

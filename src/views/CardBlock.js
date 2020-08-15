@@ -13,14 +13,31 @@ function createCardBlock(cardHeight, canvasWidth, y) {
         setCards,
     };
 
-    function setCards(cards) {
+    function setCards(cards, isInit) {
+        const delay = isInit ? 2000 : 500;
         const bw = margin + cards.length * (cardWidth + margin);
         const x = (canvasWidth - bw) / 2;
         cardViews = cards.map((card, i) => {
             const cx = x + i * (cardWidth + margin);
-            return createCardView(card, cx, y, cardWidth, cardHeight, margin);
+            const view = createCardView(
+                card,
+                cx,
+                y,
+                cardWidth,
+                cardHeight,
+                margin
+            );
+            view.setSelected(true);
+            return view;
         });
         cardViews.forEach((view) => view.setContext(ctx));
+
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                cardViews.forEach((view) => view.setSelected(false));
+                resolve();
+            }, delay);
+        });
     }
 
     function render() {

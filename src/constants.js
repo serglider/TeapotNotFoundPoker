@@ -29,10 +29,10 @@ function getConstants() {
         ],
         suits: ['s', 'h', 'c', 'd'],
         colors: {
-            's': 'black',
-            'c': 'black',
-            'h': 'red',
-            'd': 'red',
+            's': '#1F191B',
+            'c': '#1F191B',
+            'h': '#CB1728',
+            'd': '#CB1728',
         },
         stringMap: {
             'as': '🂡',
