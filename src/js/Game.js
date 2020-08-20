@@ -28,6 +28,7 @@ function createGame(keyboard) {
 
     let bet = 1;
     let balance = 404;
+    let isInit = true;
     let deck;
     let cardsToReplace;
     let isComplete;
@@ -58,7 +59,10 @@ function createGame(keyboard) {
         balance -= bet;
         deck = createDeck();
         const cards = deck.deal(5);
-        cardBlock.setCards(cards).then(enableControls);
+        cardBlock.setCards(cards, isInit).then(enableControls);
+        if (isInit) {
+            isInit = false;
+        }
         setBalanceText();
         infoTF.setText('');
         actionButton.setText('Play');

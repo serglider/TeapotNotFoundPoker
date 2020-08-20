@@ -1,10 +1,863 @@
-'use strict';function z(){return{G:{400:"Bad Request",401:"Unauthorized",402:"Payment Required",403:"Forbidden",404:"Not Found",405:"Method Not Allowed",406:"Not Acceptable",407:"Proxy Authentication Required",408:"Request Timeout",409:"Conflict",410:"Gone",411:"Length Required",412:"Precondition Failed",413:"Payload Too Large",414:"URI Too Long",415:"Unsupported Media Type",416:"Range Not Satisfiable",417:"Expectation Failed",418:"I'm a teapot"},K:[["Lose",0],["Jacks or Better",1],["Two Pair",2],
-["Three of a Kind",3],["Straight",4],["Flush",6],["Full House",9],["Four of a Kind",25],["Straight Flush",50],["Royal Flush",800]],v:"23456789tjqka".split(""),U:["s","h","c","d"],F:{s:"#1F191B",c:"#1F191B",h:"#CB1728",d:"#CB1728"},T:{as:"\ud83c\udca1",ah:"\ud83c\udcb1",ad:"\ud83c\udcc1",ac:"\ud83c\udcd1","2s":"\ud83c\udca2","2h":"\ud83c\udcb2","2d":"\ud83c\udcc2","2c":"\ud83c\udcd2","3s":"\ud83c\udca3","3h":"\ud83c\udcb3","3d":"\ud83c\udcc3","3c":"\ud83c\udcd3","4s":"\ud83c\udca4","4h":"\ud83c\udcb4",
-"4d":"\ud83c\udcc4","4c":"\ud83c\udcd4","5s":"\ud83c\udca5","5h":"\ud83c\udcb5","5d":"\ud83c\udcc5","5c":"\ud83c\udcd5","6s":"\ud83c\udca6","6h":"\ud83c\udcb6","6d":"\ud83c\udcc6","6c":"\ud83c\udcd6","7s":"\ud83c\udca7","7h":"\ud83c\udcb7","7d":"\ud83c\udcc7","7c":"\ud83c\udcd7","8s":"\ud83c\udca8","8h":"\ud83c\udcb8","8d":"\ud83c\udcc8","8c":"\ud83c\udcd8","9s":"\ud83c\udca9","9h":"\ud83c\udcb9","9d":"\ud83c\udcc9","9c":"\ud83c\udcd9",ts:"\ud83c\udcaa",th:"\ud83c\udcba",td:"\ud83c\udcca",tc:"\ud83c\udcda",
-js:"\ud83c\udcab",jh:"\ud83c\udcbb",jd:"\ud83c\udccb",jc:"\ud83c\udcdb",qs:"\ud83c\udcad",qh:"\ud83c\udcbd",qd:"\ud83c\udccd",qc:"\ud83c\udcdd",ks:"\ud83c\udcae",kh:"\ud83c\udcbe",kd:"\ud83c\udcce",kc:"\ud83c\udcde"}}};CanvasRenderingContext2D.prototype.A=function(c,d,k,f,b){k<2*b&&(b=k/2);f<2*b&&(b=f/2);this.beginPath();this.moveTo(c+b,d);this.arcTo(c+k,d,c+k,d+f,b);this.arcTo(c+k,d+f,c,d+f,b);this.arcTo(c,d+f,c,d,b);this.arcTo(c,d,c+k,d,b);this.closePath()};
-const F=D(),N=function(c){function d(){A=c.subscribe(e);t.o(!0)}function k(){var {G:n}=z();n=n[q];E.a(`Balance: ${q}${n?` (${n})`:""}`)}function f(){if(w){A();t.o(!1);w=!1;u=[];--q;B=G();var n=B.u(5);v.R(n).then(d);k();x.a("");t.a("Play")}else{A();t.o(!1);m();{n=v.J();const [C,y]=H(n);q+=y;k();y?x.a(`${C}, win ${y}`):x.a("Better luck next time");setTimeout(h,1E3)}}}function b(){w=!0;d();t.a("Place a bet")}function h(){418<q?(q=404+(q-418)%14,k(),b()):418>q?b():x.a("You won")}function g(n){-1===u.indexOf(n)&&
-(u.push(n),v.P(n))}function m(){if(u.length){const n=B.u(u.length),C=u.map((y,K)=>[y,n[K]]);v.O(C)}}function e(n){!w&&n.L&&0<n.i&&6>n.i?g(n.i-1):n.N&&f()}const a=I(),[l,p]=a.H(),r=Math.round(.3*p),v=J(r,l,r,function(n){!w&&0<=n&&5>n&&g(n)});a.add(v);const E=L(l/2,r/3);a.add(E);const x=L(l/2,r/1.5);a.add(x);const t=M(l/2,2.5*r,f);a.add(t);let q=404,B,u,w,A;return{j:function(){v.j();k();b()}}}(F),O=function(){const c=document.querySelector(".help-outer");let d=!0;return{toggle:function(){d=!d;c.style.display=
-d?"table":"none"}}}();let P=!0;F.subscribe(Q);function Q(c){c.isEscape&&(P&&(P=!1,N.j()),O.toggle())};function D(){let c={},d=[];window.addEventListener("keyup",function(k){const f=Number(k.key),b={};" "===k.key?b.N=!0:Number.isInteger(f)?(b.i=f,b.L=!0):b[`is${k.key}`]=!0;d.forEach(h=>{c[h](b)})});return{subscribe:function(k){const f=Date.now();c[f]=k;d=Object.keys(c);return function(){delete c[f];d=Object.keys(c)}},reset:function(){c={};d=[]}}};function I(){function c(a){const l=b.getBoundingClientRect();return{x:a.pageX-l.left,y:a.pageY-l.top}}function d(a){k(a);h.clearRect(0,0,b.width,b.height);f();requestAnimationFrame(d)}function k(a){m.forEach(l=>l.update(a))}function f(){g.forEach(a=>a.b())}const b=document.querySelector("canvas"),h=b.getContext("2d");let g=[],m=[],e=[];b.addEventListener("click",function(a){const l=c(a);e.forEach(p=>p(l))});b.width=window.innerWidth;b.height=window.innerHeight;h.textAlign="center";h.textBaseline=
-"middle";h.lineJoin="round";requestAnimationFrame(d);return{H:function(){return[b.width,b.height]},add:function(a){a.f(h);g.push(a);"function"===typeof a.l&&e.push(a.l)},reset:function(){g=[];m=[]}}};function G(){const {U:c,v:d}=z(),k=c.reduce((f,b)=>{const h=d.map(g=>{{const {T:m,v:e,F:a}=z();g={m:g,C:b,value:e.indexOf(g),S:m[g+b],color:a[b]}}return g});return[...f,...h]},[]);for(let f=k.length-1;0<f;f--){const b=Math.floor(Math.random()*(f+1));[k[f],k[b]]=[k[b],k[f]]}return{u:function(f){return k.splice(-1*f)}}};function H(c){const {K:d}=z(),k=[...c].sort(function(m,e){return m.value<e.value?1:m.value>e.value?-1:0});let f=!0,b=!0;const h=k.reduce((m,e,a)=>{f&&0!==a&&(f=e.value===k[a-1].value-1);b&&0!==a&&(b=e.C===k[a-1].C);m[e.m]?m[e.m].push(e):m[e.m]=[e];return m},{});c=d[0];var g=b&&f;g&&h.D&&1===h.D.length?c=d[9]:g?c=d[8]:b?c=d[5]:f?c=d[4]:(g=Object.keys(h).reduce((m,e)=>{m[h[e].length].push(h[e]);return m},{1:[],2:[],3:[],4:[]}),1===g["4"].length?c=d[7]:1===g["2"].length&&1===g["3"].length?c=d[6]:1===
-g["3"].length?c=d[3]:2===g["2"].length?c=d[2]:1===g["2"].length&&g["2"][0].every(m=>8<m.value)&&(c=d[1]));return c};function M(c,d,k){function f(a,l,p){return a>=Math.min(l,p)&&a<=Math.max(l,p)}var b="Place a bet";let h,g=!1;const m=c-200,e=d-40;return{b:function(){h.save();h.fillStyle="#C35B68";h.A(m,e,400,80,8);h.fill();h.fillStyle="white";h.font="40px fantasy";h.fillText(b,c,d);h.restore()},f:function(a){h=a},a:function(a){b=a},l:function(a){var l;if(l=g)l=f(a.x,m,m+400)&&f(a.y,e,e+80);l&&k()},o:function(a){g=a}}};function J(c,d,k,f){let b,h=[];const g=Math.round(.06*c),m=Math.round(.66*c);return{f:function(e){b=e},b:function(){h.forEach(e=>e.b())},P:function(e){h[e].g(!0)},O:function(e){e.forEach(([a,l])=>{h[a].B(l);h[a].g(!1)})},J:function(){return h.map(e=>e.I())},R:function(e){h.forEach((a,l)=>{a.g(!0);a.B(e[l])});return new Promise(a=>{setTimeout(()=>{h.forEach(l=>l.g(!1));a()},500)})},j:function(){const e=(d-(g+5*(m+g)))/2;h=Array.from({length:5},(a,l)=>{a=R(e+l*(m+g),k,m,c,g);a.f(b);return a})},l:function(e){let a=
-0;for(;5>a&&!h[a].M(e);a++);f(a)}}};function R(c,d,k,f,b){function h(l,p,r){return l>=Math.min(p,r)&&l<=Math.max(p,r)}let g,m,e;const a=b/2;return{b:function(){g.save();g.fillStyle="white";g.A(c,d,k,f-a,a);g.fill();g.font=`${f}px sans-serif`;g.textBaseline="top";g.textAlign="left";const l=e||!m;g.fillStyle=l?"#DCB600":m.color;g.fillText(l?"\ud83c\udcbf":m.S,c,d+b);g.restore()},f:function(l){g=l},g:function(l){e=l},B:function(l){m=l},I:function(){return m},M:function(l){return h(l.x,c,c+k)&&h(l.y,d,d+f)}}};function L(c,d){var k="",f={fill:"white",fontSize:42};let b;const h=f.fontSize,g=f.fill,m=f.stroke;return{b:function(){b.save();b.font=`${h}px fantasy`;b.fillStyle=g;b.fillText(k,c,d);m&&(b.strokeStyle=m,b.strokeText(k,c,d));b.restore()},f:function(e){b=e},a:function(e){k=e}}};
+function getConstants() {
+    return {
+        errors: {
+            '400': 'Bad Request',
+            '401': 'Unauthorized',
+            '402': 'Payment Required',
+            '403': 'Forbidden',
+            '404': 'Not Found',
+            '405': 'Method Not Allowed',
+            '406': 'Not Acceptable',
+            '407': 'Proxy Authentication Required',
+            '408': 'Request Timeout',
+            '409': 'Conflict',
+            '410': 'Gone',
+            '411': 'Length Required',
+            '412': 'Precondition Failed',
+            '413': 'Payload Too Large',
+            '414': 'URI Too Long',
+            '415': 'Unsupported Media Type',
+            '416': 'Range Not Satisfiable',
+            '417': 'Expectation Failed',
+            '418': "I'm a teapot",
+        },
+        hands: [
+            ['Lose', 0],
+            ['Jacks or Better', 1],
+            ['Two Pair', 2],
+            ['Three of a Kind', 3],
+            ['Straight', 4],
+            ['Flush', 6],
+            ['Full House', 9],
+            ['Four of a Kind', 25],
+            ['Straight Flush', 50],
+            ['Royal Flush', 800],
+        ],
+        ranks: [
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            't',
+            'j',
+            'q',
+            'k',
+            'a',
+        ],
+        suits: ['s', 'h', 'c', 'd'],
+        colors: {
+            's': '#1F191B',
+            'c': '#1F191B',
+            'h': '#CB1728',
+            'd': '#CB1728',
+        },
+        stringMap: {
+            'as': '\ud83c\udca1',
+            'ah': '\ud83c\udcb1',
+            'ad': '\ud83c\udcc1',
+            'ac': '\ud83c\udcd1',
+            '2s': '\ud83c\udca2',
+            '2h': '\ud83c\udcb2',
+            '2d': '\ud83c\udcc2',
+            '2c': '\ud83c\udcd2',
+            '3s': '\ud83c\udca3',
+            '3h': '\ud83c\udcb3',
+            '3d': '\ud83c\udcc3',
+            '3c': '\ud83c\udcd3',
+            '4s': '\ud83c\udca4',
+            '4h': '\ud83c\udcb4',
+            '4d': '\ud83c\udcc4',
+            '4c': '\ud83c\udcd4',
+            '5s': '\ud83c\udca5',
+            '5h': '\ud83c\udcb5',
+            '5d': '\ud83c\udcc5',
+            '5c': '\ud83c\udcd5',
+            '6s': '\ud83c\udca6',
+            '6h': '\ud83c\udcb6',
+            '6d': '\ud83c\udcc6',
+            '6c': '\ud83c\udcd6',
+            '7s': '\ud83c\udca7',
+            '7h': '\ud83c\udcb7',
+            '7d': '\ud83c\udcc7',
+            '7c': '\ud83c\udcd7',
+            '8s': '\ud83c\udca8',
+            '8h': '\ud83c\udcb8',
+            '8d': '\ud83c\udcc8',
+            '8c': '\ud83c\udcd8',
+            '9s': '\ud83c\udca9',
+            '9h': '\ud83c\udcb9',
+            '9d': '\ud83c\udcc9',
+            '9c': '\ud83c\udcd9',
+            'ts': '\ud83c\udcaa',
+            'th': '\ud83c\udcba',
+            'td': '\ud83c\udcca',
+            'tc': '\ud83c\udcda',
+            'js': '\ud83c\udcab',
+            'jh': '\ud83c\udcbb',
+            'jd': '\ud83c\udccb',
+            'jc': '\ud83c\udcdb',
+            'qs': '\ud83c\udcad',
+            'qh': '\ud83c\udcbd',
+            'qd': '\ud83c\udccd',
+            'qc': '\ud83c\udcdd',
+            'ks': '\ud83c\udcae',
+            'kh': '\ud83c\udcbe',
+            'kd': '\ud83c\udcce',
+            'kc': '\ud83c\udcde',
+        },
+    };
+}
+
+function createGame(keyboard) {
+    const world = createWorld();
+    const [cw, ch] = world.getBounds();
+    const cardH = Math.round(ch * 0.3);
+    const cardBlock = createCardBlock(cardH, cw, cardH, onCardClick);
+    world.add(cardBlock);
+    const balanceTF = createTextView('', cw / 2, cardH / 3, {
+        fill: 'white',
+        fontSize: 42,
+    });
+    world.add(balanceTF);
+
+    const infoTF = createTextView('', cw / 2, cardH / 1.5, {
+        fill: 'white',
+        fontSize: 42,
+    });
+    world.add(infoTF);
+
+    const actionButton = createButton(
+        cw / 2,
+        cardH * 2.5,
+        400,
+        80,
+        'Place a bet',
+        onAction
+    );
+    world.add(actionButton);
+
+    let bet = 1;
+    let balance = 404;
+    let isInit = true;
+    let deck;
+    let cardsToReplace;
+    let isComplete;
+    let lockKeyboard;
+
+    return { init };
+
+    function init() {
+        cardBlock.init();
+        setBalanceText();
+        toNextRound();
+    }
+
+    function enableControls() {
+        lockKeyboard = keyboard.subscribe(onKey);
+        actionButton.setInteractive(true);
+    }
+
+    function disableControls() {
+        lockKeyboard();
+        actionButton.setInteractive(false);
+    }
+
+    function placeBet() {
+        disableControls();
+        isComplete = false;
+        cardsToReplace = [];
+        balance -= bet;
+        deck = createDeck();
+        const cards = deck.deal(5);
+        cardBlock.setCards(cards, isInit).then(enableControls);
+        if (isInit) {
+            isInit = false;
+        }
+        setBalanceText();
+        infoTF.setText('');
+        actionButton.setText('Play');
+    }
+
+    function setBalanceText() {
+        const { errors } = getConstants();
+        const err = errors[balance];
+        const add = err ? ` (${err})` : '';
+        balanceTF.setText(`Balance: ${balance}${add}`);
+    }
+
+    function adjustBalance(actual) {
+        return 404 + ((actual - 418) % 14);
+    }
+
+    function confirmSelection() {
+        const hand = cardBlock.getCards();
+        const [name, win] = rateHand(hand);
+        balance += win;
+        setBalanceText();
+        if (win) {
+            infoTF.setText(`${name}, win ${win}`);
+        } else {
+            infoTF.setText('Better luck next time');
+        }
+        setTimeout(onComplete, 1000);
+    }
+
+    function onAction() {
+        if (isComplete) {
+            placeBet();
+        } else {
+            disableControls();
+            replaceCards();
+            confirmSelection();
+        }
+    }
+
+    function toNextRound() {
+        isComplete = true;
+        enableControls();
+        actionButton.setText('Place a bet');
+        // infoTF.setText('');
+    }
+
+    function onComplete() {
+        if (balance > 418) {
+            balance = adjustBalance(balance);
+            setBalanceText();
+            toNextRound();
+        } else if (balance < 418) {
+            toNextRound();
+        } else {
+            infoTF.setText('You won');
+        }
+    }
+
+    function prepareDraw(index) {
+        const i = cardsToReplace.indexOf(index);
+        if (i === -1) {
+            cardsToReplace.push(index);
+            cardBlock.selectCard(index);
+        }
+    }
+
+    function replaceCards() {
+        if (cardsToReplace.length) {
+            const drawCards = deck.deal(cardsToReplace.length);
+            const drawData = cardsToReplace.map((index, i) => [
+                index,
+                drawCards[i],
+            ]);
+            cardBlock.replaceCards(drawData);
+        }
+    }
+
+    function onCardClick(i) {
+        if (!isComplete && i >= 0 && i < 5) {
+            prepareDraw(i);
+        }
+    }
+
+    function onKey(e) {
+        if (!isComplete && e.isDigit && e.digit > 0 && e.digit < 6) {
+            prepareDraw(e.digit - 1);
+        } else if (e.isSpace) {
+            onAction();
+        }
+    }
+}
+
+function createHelp() {
+    const help = document.querySelector('.help-outer');
+    let isShown = true;
+
+    return { toggle };
+
+    function toggle() {
+        isShown = !isShown;
+        help.style.display = isShown ? 'table' : 'none';
+    }
+}
+
+roundRectPolyfill();
+const keyboard = createKeyboard();
+const game = createGame(keyboard);
+const help = createHelp();
+let isFirstRun = true;
+keyboard.subscribe(onKeyup);
+
+function onKeyup(e) {
+    if (e['isEscape']) {
+        if (isFirstRun) {
+            isFirstRun = false;
+            game.init();
+        }
+        help.toggle();
+    }
+}
+
+function createKeyboard() {
+    let listeners = {};
+    let keys = [];
+
+    window.addEventListener('keyup', handleKeyUp);
+
+    return {
+        subscribe,
+        reset,
+    };
+
+    function reset() {
+        listeners = {};
+        keys = [];
+    }
+
+    function handleKeyUp(e) {
+        const dig = Number(e.key);
+        const event = {};
+        if (isSpace(e.key)) {
+            event.isSpace = true;
+        } else if (isDigit(dig)) {
+            event.digit = dig;
+            event.isDigit = true;
+        } else {
+            event[`is${e.key}`] = true;
+        }
+        keys.forEach((key) => {
+            listeners[key](event);
+        });
+    }
+
+    function subscribe(listener) {
+        const key = Date.now();
+        listeners[key] = listener;
+        keys = Object.keys(listeners);
+
+        return function () {
+            delete listeners[key];
+            keys = Object.keys(listeners);
+        };
+    }
+
+    function isDigit(value) {
+        return Number.isInteger(value);
+    }
+
+    function isSpace(value) {
+        return value === ' ';
+    }
+}
+
+function roundRectPolyfill() {
+    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+        if (w < 2 * r) {
+            r = w / 2;
+        }
+        if (h < 2 * r) {
+            r = h / 2;
+        }
+        this.beginPath();
+        this.moveTo(x + r, y);
+        this.arcTo(x + w, y, x + w, y + h, r);
+        this.arcTo(x + w, y + h, x, y + h, r);
+        this.arcTo(x, y + h, x, y, r);
+        this.arcTo(x, y, x + w, y, r);
+        this.closePath();
+        return this;
+    };
+}
+
+function createWorld() {
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    let objects = [];
+    let dynamicObjects = [];
+    let mouseListeners = [];
+
+    canvas.addEventListener('click', onClick);
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.lineJoin = 'round';
+
+    requestAnimationFrame(loop);
+
+    return {
+        getBounds,
+        add,
+        // reset,
+    };
+
+    function getBounds() {
+        return [canvas.width, canvas.height];
+    }
+
+    function add(obj) {
+        obj.setContext(ctx);
+        objects.push(obj);
+        if (typeof obj.mouseListener === 'function') {
+            mouseListeners.push(obj.mouseListener);
+        }
+        if (typeof obj.update === 'function') {
+            dynamicObjects.push(obj);
+        }
+    }
+
+    function onClick(e) {
+        const mouse = getMousePosition(e);
+        mouseListeners.forEach((listener) => listener(mouse));
+    }
+
+    function getMousePosition(e) {
+        const bcr = canvas.getBoundingClientRect();
+        return {
+            x: e.pageX - bcr.left,
+            y: e.pageY - bcr.top,
+        };
+    }
+
+    // function reset() {
+    //     objects = [];
+    //     dynamicObjects = [];
+    //     mouseListeners = [];
+    // }
+
+    function loop(t) {
+        update(t);
+        clear();
+        render();
+        requestAnimationFrame(loop);
+    }
+
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function update(t) {
+        dynamicObjects.forEach((obj) => obj.update(t));
+    }
+
+    function render() {
+        objects.forEach((obj) => obj.render());
+    }
+}
+
+function createCard(rank, suit) {
+    const { stringMap, ranks, colors } = getConstants();
+    return {
+        rank,
+        suit,
+        value: ranks.indexOf(rank),
+        string: stringMap[rank + suit],
+        color: colors[suit],
+    };
+}
+
+function createDeck() {
+    const { suits, ranks } = getConstants();
+    const cards = suits.reduce((result, suit) => {
+        const cardsWithRank = ranks.map((rank) => createCard(rank, suit));
+        return [...result, ...cardsWithRank];
+    }, []);
+
+    for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+
+    function deal(num) {
+        return cards.splice(num * -1);
+    }
+
+    return { deal };
+}
+
+function rateHand(cards) {
+    const { hands } = getConstants();
+    const pool = [...cards].sort(valueComparator);
+    let isStraight = true;
+    let isFlush = true;
+
+    const kinds = pool.reduce((result, card, index) => {
+        if (isStraight && index !== 0) {
+            isStraight = card.value === pool[index - 1].value - 1;
+        }
+        if (isFlush && index !== 0) {
+            isFlush = card.suit === pool[index - 1].suit;
+        }
+        if (result[card.rank]) {
+            result[card.rank].push(card);
+        } else {
+            result[card.rank] = [card];
+        }
+        return result;
+    }, {});
+
+    let rate = hands[0];
+
+    const isStraightFlush = isFlush && isStraight;
+    const isRoyalFlush = isStraightFlush && kinds.a && kinds.a.length === 1;
+    if (isRoyalFlush) {
+        rate = hands[9];
+    } else if (isStraightFlush) {
+        rate = hands[8];
+    } else if (isFlush) {
+        rate = hands[5];
+    } else if (isStraight) {
+        rate = hands[4];
+    } else {
+        const rb /* repetition buckets*/ = Object.keys(kinds).reduce(
+            (result, rank) => {
+                const len = kinds[rank].length;
+                result[len].push(kinds[rank]);
+                return result;
+            },
+            { '1': [], '2': [], '3': [], '4': [] }
+        );
+
+        if (rb['4'].length === 1) {
+            rate = hands[7];
+        } else if (rb['2'].length === 1 && rb['3'].length === 1) {
+            rate = hands[6];
+        } else if (rb['3'].length === 1) {
+            rate = hands[3];
+        } else if (rb['2'].length === 2) {
+            rate = hands[2];
+        } else if (rb['2'].length === 1) {
+            const isBetter = rb['2'][0].every((card) => card.value > 8);
+            if (isBetter) {
+                rate = hands[1];
+            }
+        }
+    }
+
+    return rate;
+
+    function valueComparator(card1, card2) {
+        if (card1.value < card2.value) {
+            return 1;
+        }
+        if (card1.value > card2.value) {
+            return -1;
+        }
+        return 0;
+    }
+}
+
+function createBetBlock(x, y, r) {
+    let ctx;
+    const gap = Math.round(r * 0.1);
+    const coinsViews = [createCoinView(x, y, r)];
+
+    return {
+        setContext,
+        render,
+        addCoin,
+        removeCoin,
+    };
+
+    function addCoin() {
+        const cx = x + coinsViews.length * (2 * r + gap);
+        const coinView = createCoinView(cx, y, r);
+        coinView.setContext(ctx);
+        coinsViews.push(coinView);
+    }
+
+    function removeCoin() {
+        coinsViews.pop();
+    }
+
+    function render() {
+        coinsViews.forEach((view) => view.render());
+    }
+
+    function setContext(c) {
+        ctx = c;
+        coinsViews.forEach((view) => view.setContext(c));
+    }
+}
+
+function createButton(cx, cy, w, h, text, listener) {
+    let ctx;
+    let isInteractive = false;
+    const x = cx - w / 2;
+    const y = cy - h / 2;
+    const r = Math.round(h * 0.1);
+
+    return {
+        render,
+        setContext,
+        setText,
+        mouseListener,
+        setInteractive,
+    };
+
+    function setInteractive(isActive) {
+        isInteractive = isActive;
+    }
+
+    function setText(t) {
+        text = t;
+    }
+
+    function mouseListener(point) {
+        if (isInteractive && isPointInside(point)) {
+            listener();
+        }
+    }
+
+    function isPointInside(point) {
+        return inRange(point.x, x, x + w) && inRange(point.y, y, y + h);
+    }
+
+    function inRange(value, min, max) {
+        return value >= Math.min(min, max) && value <= Math.max(min, max);
+    }
+
+    function render() {
+        ctx.save();
+        ctx.fillStyle = '#C35B68';
+        ctx.roundRect(x, y, w, h, r);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.font = `${h / 2}px fantasy`;
+        ctx.fillText(text, cx, cy);
+        ctx.restore();
+    }
+
+    function setContext(c) {
+        ctx = c;
+    }
+}
+
+function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
+    let ctx;
+    let cardViews = [];
+    const margin = Math.round(cardHeight * 0.06);
+    const cardWidth = Math.round(cardHeight * 0.66);
+
+    return {
+        setContext,
+        render,
+        selectCard,
+        replaceCards,
+        getCards,
+        setCards,
+        init,
+        mouseListener,
+        update,
+    };
+
+    function mouseListener(mouse) {
+        let i = 0;
+        for (; i < 5; i++) {
+            if (cardViews[i].isPointInside(mouse)) {
+                break;
+            }
+        }
+        onCardClick(i);
+    }
+
+    function init() {
+        const bw = margin + 5 * (cardWidth + margin);
+        const x = (canvasWidth - bw) / 2;
+        cardViews = Array.from({ length: 5 }, (_, i) => {
+            const cx = x + i * (cardWidth + margin);
+            const view = createCardView(cx, y, cardWidth, cardHeight, margin);
+            view.setContext(ctx);
+            return view;
+        });
+    }
+
+    function update() {
+        cardViews.forEach((view) => view.update());
+    }
+
+    function setCards(cards, isInit) {
+        const tasks = cardViews.map((view, i) => {
+            view.setCard(cards[i]);
+            return view.flip(0.16);
+        });
+        return Promise.all(tasks).then(() => {
+            if (isInit) {
+                return Promise.resolve();
+            }
+            return cardViews.reduce((accumulatorPromise, view) => {
+                return accumulatorPromise.then(() => {
+                    return view.flip(0.24);
+                });
+            }, Promise.resolve());
+        });
+    }
+
+    function render() {
+        cardViews.forEach((view) => view.render());
+    }
+
+    function setContext(c) {
+        ctx = c;
+    }
+
+    function selectCard(index) {
+        cardViews[index].flip(0.16);
+    }
+
+    function replaceCards(drawData) {
+        drawData.forEach(([index, card]) => {
+            cardViews[index].setCard(card);
+            cardViews[index].flip(0.16);
+        });
+    }
+
+    function getCards() {
+        return cardViews.map((view) => view.getCard());
+    }
+}
+
+function createCardView(x, y, w, h, margin) {
+    let ctx;
+    let card;
+    const halfMargin = margin / 2;
+    const back = '\ud83c\udcbf';
+
+    let isFlipped = true;
+    let isSwap = false;
+    let scaleY = 1;
+    let add = -0.16;
+    let flipResolver = () => {};
+
+    return {
+        render,
+        setContext,
+        flip,
+        setCard,
+        getCard,
+        isPointInside,
+        update,
+    };
+
+    function isPointInside(point) {
+        return inRange(point.x, x, x + w) && inRange(point.y, y, y + h);
+    }
+
+    function inRange(value, min, max) {
+        return value >= Math.min(min, max) && value <= Math.max(min, max);
+    }
+
+    function render() {
+        ctx.save();
+        const shiftY = (h - halfMargin) / 2;
+        ctx.translate(x, y + shiftY);
+        ctx.scale(1, scaleY);
+        ctx.fillStyle = 'white';
+        ctx.roundRect(0, shiftY * -1, w, h - halfMargin, halfMargin);
+        ctx.fill();
+        ctx.font = `${h}px sans-serif`;
+        ctx.textBaseline = 'top';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = isFlipped ? '#DCB600' : card.color;
+        const text = isFlipped ? back : card.string;
+        ctx.fillText(text, 0, shiftY * -1 + margin);
+
+        ctx.restore();
+    }
+
+    function update() {
+        if (isSwap) {
+            scaleY += add;
+            if (scaleY <= 0) {
+                scaleY = 0;
+                add *= -1;
+                isFlipped = !isFlipped;
+            } else if (scaleY >= 1) {
+                scaleY = 1;
+                add *= -1;
+                isSwap = false;
+                flipResolver();
+            }
+        }
+    }
+
+    function setCard(cd) {
+        card = cd;
+    }
+
+    function getCard() {
+        return card;
+    }
+
+    function flip(dt) {
+        add = -1 * dt;
+        isSwap = true;
+        return new Promise((resolve) => {
+            flipResolver = resolve;
+        });
+    }
+
+    function setContext(c) {
+        ctx = c;
+    }
+}
+
+function createCoinView(x, y, r) {
+    let ctx;
+
+    return {
+        render,
+        setContext,
+    };
+
+    function render() {
+        ctx.save();
+        ctx.strokeStyle = 'green';
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.font = `bold ${r * 2}px sans-serif`;
+        ctx.fillStyle = 'white';
+        ctx.fillText('$', x, y + 5);
+        ctx.strokeText('$', x, y + 5);
+
+        ctx.restore();
+    }
+
+    function setContext(c) {
+        ctx = c;
+    }
+}
+
+function createTextView(text, x, y, style) {
+    let ctx;
+    const { fontSize, fill, stroke } = style;
+
+    return {
+        render,
+        setContext,
+        setText,
+    };
+
+    function setText(t) {
+        text = t;
+    }
+
+    function render() {
+        ctx.save();
+        ctx.font = `${fontSize}px fantasy`;
+        ctx.fillStyle = fill;
+        ctx.fillText(text, x, y);
+        if (stroke) {
+            ctx.strokeStyle = stroke;
+            ctx.strokeText(text, x, y);
+        }
+        ctx.restore();
+    }
+
+    function setContext(c) {
+        ctx = c;
+    }
+}

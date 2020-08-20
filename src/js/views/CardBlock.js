@@ -13,6 +13,7 @@ function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
         setCards,
         init,
         mouseListener,
+        update,
     };
 
     function mouseListener(mouse) {
@@ -36,17 +37,24 @@ function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
         });
     }
 
-    function setCards(cards) {
-        cardViews.forEach((view, i) => {
-            view.setSelected(true);
-            view.setCard(cards[i]);
-        });
+    function update() {
+        cardViews.forEach((view) => view.update());
+    }
 
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                cardViews.forEach((view) => view.setSelected(false));
-                resolve();
-            }, 500);
+    function setCards(cards, isInit) {
+        const tasks = cardViews.map((view, i) => {
+            view.setCard(cards[i]);
+            return view.flip(0.16);
+        });
+        return Promise.all(tasks).then(() => {
+            if (isInit) {
+                return Promise.resolve();
+            }
+            return cardViews.reduce((accumulatorPromise, view) => {
+                return accumulatorPromise.then(() => {
+                    return view.flip(0.24);
+                });
+            }, Promise.resolve());
         });
     }
 
@@ -59,13 +67,13 @@ function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
     }
 
     function selectCard(index) {
-        cardViews[index].setSelected(true);
+        cardViews[index].flip(0.16);
     }
 
     function replaceCards(drawData) {
         drawData.forEach(([index, card]) => {
             cardViews[index].setCard(card);
-            cardViews[index].setSelected(false);
+            cardViews[index].flip(0.16);
         });
     }
 

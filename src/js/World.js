@@ -18,7 +18,7 @@ function createWorld() {
     return {
         getBounds,
         add,
-        reset,
+        // reset,
     };
 
     function getBounds() {
@@ -30,6 +30,9 @@ function createWorld() {
         objects.push(obj);
         if (typeof obj.mouseListener === 'function') {
             mouseListeners.push(obj.mouseListener);
+        }
+        if (typeof obj.update === 'function') {
+            dynamicObjects.push(obj);
         }
     }
 
@@ -46,10 +49,11 @@ function createWorld() {
         };
     }
 
-    function reset() {
-        objects = [];
-        dynamicObjects = [];
-    }
+    // function reset() {
+    //     objects = [];
+    //     dynamicObjects = [];
+    //     mouseListeners = [];
+    // }
 
     function loop(t) {
         update(t);
