@@ -3,7 +3,7 @@ function createCardView(x, y, w, h, margin) {
     let card;
     let isSelected;
     const halfMargin = margin / 2;
-    const back = '🂿';
+    const back = '\ud83c\udcbf';
 
     return {
         render,

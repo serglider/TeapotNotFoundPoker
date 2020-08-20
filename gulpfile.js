@@ -5,6 +5,7 @@ const browserSync = require('browser-sync');
 const htmlmin = require('gulp-htmlmin');
 const concat = require('gulp-concat');
 const zip = require('gulp-zip');
+const cleanCSS = require('gulp-clean-css');
 
 function cleanDist(done) {
     del.sync(['dist']);
@@ -29,21 +30,27 @@ function minifyHTML() {
         .pipe(dest('dist'));
 }
 
+function minifyCSS() {
+    return src('src/*.css')
+        .pipe(cleanCSS({ compatibility: 'ie8' }))
+        .pipe(dest('dist'));
+}
+
 function compile() {
-    return src('src/**/*.js')
+    return src('src/js/**/*.js')
         .pipe(
             closureCompiler({
                 compilation_level: 'ADVANCED',
                 warning_level: 'VERBOSE',
                 language_out: 'ECMASCRIPT6',
-                js_output_file: 'app.min.js',
+                js_output_file: 'app.js',
             })
         )
         .pipe(dest('dist'));
 }
 
 function compileDev() {
-    return src('src/**/*.js').pipe(concat('app.min.js')).pipe(dest('dist'));
+    return src('src/js/**/*.js').pipe(concat('app.js')).pipe(dest('dist'));
 }
 
 function startServer(done) {
@@ -65,7 +72,10 @@ function watchSource(done) {
     done();
 }
 
-exports.build = series(cleanDist, parallel(minifyHTML, compile));
-exports.default = series(cleanDist, parallel(minifyHTML, compileDev));
+exports.build = series(cleanDist, parallel(minifyHTML, minifyCSS, compile));
+exports.default = series(
+    cleanDist,
+    parallel(minifyHTML, minifyCSS, compileDev)
+);
 exports.watch = series(exports.default, startServer, watchSource);
 exports.zip = series(exports.build, archive);

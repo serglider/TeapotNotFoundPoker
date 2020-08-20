@@ -25,7 +25,9 @@ function createKeyboard() {
         } else {
             event[`is${e.key}`] = true;
         }
-        keys.forEach((key) => listeners[key] && listeners[key](event));
+        keys.forEach((key) => {
+            listeners[key](event);
+        });
     }
 
     function subscribe(listener) {
