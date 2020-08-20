@@ -1,6 +1,8 @@
-function createCardView(card, x, y, w, h, margin) {
+function createCardView(x, y, w, h, margin) {
     let ctx;
+    let card;
     let isSelected;
+    const halfMargin = margin / 2;
     const back = '🂿';
 
     return {
@@ -9,17 +11,28 @@ function createCardView(card, x, y, w, h, margin) {
         setSelected,
         setCard,
         getCard,
+        isPointInside,
     };
+
+    function isPointInside(point) {
+        return inRange(point.x, x, x + w) && inRange(point.y, y, y + h);
+    }
+
+    function inRange(value, min, max) {
+        return value >= Math.min(min, max) && value <= Math.max(min, max);
+    }
 
     function render() {
         ctx.save();
         ctx.fillStyle = 'white';
-        ctx.fillRect(x, y, w, h - margin / 2);
+        ctx.roundRect(x, y, w, h - halfMargin, halfMargin);
+        ctx.fill();
         ctx.font = `${h}px sans-serif`;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
-        ctx.fillStyle = isSelected ? '#DCB600' : card.color;
-        const text = isSelected ? back : card.string;
+        const isBack = isSelected || !card;
+        ctx.fillStyle = isBack ? '#DCB600' : card.color;
+        const text = isBack ? back : card.string;
         ctx.fillText(text, x, y + margin);
 
         ctx.restore();

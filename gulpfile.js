@@ -4,10 +4,19 @@ const del = require('del');
 const browserSync = require('browser-sync');
 const htmlmin = require('gulp-htmlmin');
 const concat = require('gulp-concat');
+const zip = require('gulp-zip');
 
 function cleanDist(done) {
     del.sync(['dist']);
     return done();
+}
+
+function archive() {
+    const d = new Date();
+    const version = `${d.getMonth() + 1}_${d.getDate()}_${d.getHours()}`;
+    return src('dist/*')
+        .pipe(zip(`app_${version}.zip`))
+        .pipe(dest('submission'));
 }
 
 function minifyHTML() {
@@ -59,3 +68,4 @@ function watchSource(done) {
 exports.build = series(cleanDist, parallel(minifyHTML, compile));
 exports.default = series(cleanDist, parallel(minifyHTML, compileDev));
 exports.watch = series(exports.default, startServer, watchSource);
+exports.zip = series(exports.build, archive);

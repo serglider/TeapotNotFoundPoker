@@ -3,6 +3,9 @@ function createWorld() {
     const ctx = canvas.getContext('2d');
     let objects = [];
     let dynamicObjects = [];
+    let mouseListeners = [];
+
+    canvas.addEventListener('click', onClick);
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -25,9 +28,22 @@ function createWorld() {
     function add(obj) {
         obj.setContext(ctx);
         objects.push(obj);
-        if (typeof obj.update === 'function') {
-            dynamicObjects.push(obj);
+        if (typeof obj.mouseListener === 'function') {
+            mouseListeners.push(obj.mouseListener);
         }
+    }
+
+    function onClick(e) {
+        const mouse = getMousePosition(e);
+        mouseListeners.forEach((listener) => listener(mouse));
+    }
+
+    function getMousePosition(e) {
+        const bcr = canvas.getBoundingClientRect();
+        return {
+            x: e.pageX - bcr.left,
+            y: e.pageY - bcr.top,
+        };
     }
 
     function reset() {

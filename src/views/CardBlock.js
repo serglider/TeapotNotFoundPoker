@@ -1,4 +1,4 @@
-function createCardBlock(cardHeight, canvasWidth, y) {
+function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
     let ctx;
     let cardViews = [];
     const margin = Math.round(cardHeight * 0.06);
@@ -11,32 +11,42 @@ function createCardBlock(cardHeight, canvasWidth, y) {
         replaceCards,
         getCards,
         setCards,
+        init,
+        mouseListener,
     };
 
-    function setCards(cards, isInit) {
-        const delay = isInit ? 2000 : 500;
-        const bw = margin + cards.length * (cardWidth + margin);
+    function mouseListener(mouse) {
+        let i = 0;
+        for (; i < 5; i++) {
+            if (cardViews[i].isPointInside(mouse)) {
+                break;
+            }
+        }
+        onCardClick(i);
+    }
+
+    function init() {
+        const bw = margin + 5 * (cardWidth + margin);
         const x = (canvasWidth - bw) / 2;
-        cardViews = cards.map((card, i) => {
+        cardViews = Array.from({ length: 5 }, (_, i) => {
             const cx = x + i * (cardWidth + margin);
-            const view = createCardView(
-                card,
-                cx,
-                y,
-                cardWidth,
-                cardHeight,
-                margin
-            );
-            view.setSelected(true);
+            const view = createCardView(cx, y, cardWidth, cardHeight, margin);
+            view.setContext(ctx);
             return view;
         });
-        cardViews.forEach((view) => view.setContext(ctx));
+    }
+
+    function setCards(cards) {
+        cardViews.forEach((view, i) => {
+            view.setSelected(true);
+            view.setCard(cards[i]);
+        });
 
         return new Promise((resolve) => {
             setTimeout(() => {
                 cardViews.forEach((view) => view.setSelected(false));
                 resolve();
-            }, delay);
+            }, 500);
         });
     }
 

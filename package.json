@@ -1,5 +1,5 @@
 {
-    "name": "todo",
+    "name": "teapot-not-found-poker",
     "version": "1.0.0",
     "description": "game is an entry for 2020 js13k contest",
     "main": "",
@@ -20,6 +20,7 @@
         "gulp-concat": "^2.6.1",
         "gulp-htmlmin": "^5.0.1",
         "gulp-uglify": "^3.0.2",
+        "gulp-zip": "^5.0.2",
         "prettier": "^2.0.5"
     },
     "prettier": {

@@ -19,10 +19,6 @@ function createKeyboard() {
         const event = {};
         if (isSpace(e.key)) {
             event.isSpace = true;
-        } else if (isPlus(e.key)) {
-            event.isPlus = true;
-        } else if (isMinus(e.key)) {
-            event.isMinus = true;
         } else if (isDigit(dig)) {
             event.digit = dig;
             event.isDigit = true;
@@ -49,13 +45,5 @@ function createKeyboard() {
 
     function isSpace(value) {
         return value === ' ';
-    }
-
-    function isPlus(value) {
-        return value === '+';
-    }
-
-    function isMinus(value) {
-        return value === '-';
     }
 }
