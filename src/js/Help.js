@@ -1,6 +1,6 @@
 function createHelp() {
     const help = document.querySelector('.help-outer');
-    let isShown = true;
+    let isShown = false;
 
     return { toggle };
 

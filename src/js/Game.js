@@ -124,6 +124,7 @@ function createGame(keyboard) {
     function prepareDraw(index) {
         const i = cardsToReplace.indexOf(index);
         if (i === -1) {
+            actionButton.setText('Deal');
             cardsToReplace.push(index);
             cardBlock.selectCard(index);
         }

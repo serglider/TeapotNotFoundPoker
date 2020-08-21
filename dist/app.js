@@ -23,7 +23,7 @@ function getConstants() {
         },
         hands: [
             ['Lose', 0],
-            ['Jacks or Better', 1],
+            ['Jacks or Better Pair', 1],
             ['Two Pair', 2],
             ['Three of a Kind', 3],
             ['Straight', 4],
@@ -238,6 +238,7 @@ function createGame(keyboard) {
     function prepareDraw(index) {
         const i = cardsToReplace.indexOf(index);
         if (i === -1) {
+            actionButton.setText('Deal');
             cardsToReplace.push(index);
             cardBlock.selectCard(index);
         }
@@ -271,7 +272,7 @@ function createGame(keyboard) {
 
 function createHelp() {
     const help = document.querySelector('.help-outer');
-    let isShown = true;
+    let isShown = false;
 
     return { toggle };
 
@@ -285,15 +286,19 @@ roundRectPolyfill();
 const keyboard = createKeyboard();
 const game = createGame(keyboard);
 const help = createHelp();
-let isFirstRun = true;
+// let isFirstRun = true;
 keyboard.subscribe(onKeyup);
+game.init();
+
+// TODO text positions and styles
+// TODO flip horiz
 
 function onKeyup(e) {
     if (e['isEscape']) {
-        if (isFirstRun) {
-            isFirstRun = false;
-            game.init();
-        }
+        // if (isFirstRun) {
+        //     isFirstRun = false;
+        //     game.init();
+        // }
         help.toggle();
     }
 }
