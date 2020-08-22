@@ -22,7 +22,7 @@ function getConstants() {
             '418': "I'm a teapot",
         },
         hands: [
-            ['Lose', 0],
+            ['', 0],
             ['Jacks or Better Pair', 1],
             ['Two Pair', 2],
             ['Three of a Kind', 3],
@@ -116,26 +116,65 @@ function createGame(keyboard) {
     const world = createWorld();
     const [cw, ch] = world.getBounds();
     const cardH = Math.round(ch * 0.3);
-    const cardBlock = createCardBlock(cardH, cw, cardH, onCardClick);
+    const cardW = Math.round(cardH * 0.66);
+    const cardGap = Math.round(cardH * 0.06);
+    const fs = cardGap * 2;
+    const cardBlockW = 5 * (cardW + cardGap);
+    const cardBlockX = (cw - cardBlockW) / 2;
+    const infoTextY = cardH - cardGap * 2;
+
+    const cardBlock = createCardBlock(
+        cardW,
+        cardH,
+        cardBlockX,
+        cardH,
+        cardGap,
+        onCardClick
+    );
     world.add(cardBlock);
+
     const balanceTF = createTextView('', cw / 2, cardH / 3, {
         fill: 'white',
-        fontSize: 42,
+        fontSize: fs,
+        fontFamily: window.ff,
     });
     world.add(balanceTF);
 
-    const infoTF = createTextView('', cw / 2, cardH / 1.5, {
-        fill: 'white',
-        fontSize: 42,
+    const errorTF = createTextView('', cw / 2, cardH / 3 + fs * 2, {
+        fill: '#DCB600',
+        fontSize: fs,
+        fontFamily: 'monospace',
     });
-    world.add(infoTF);
+    world.add(errorTF);
 
+    const winTF = createTextView(
+        '',
+        cardBlockW + cardBlockX - cardGap,
+        infoTextY,
+        {
+            fill: 'white',
+            fontSize: fs,
+            textAlign: 'right',
+        }
+    );
+    world.add(winTF);
+
+    const handTF = createTextView('', cardBlockX, infoTextY, {
+        fill: 'white',
+        fontSize: fs,
+        textAlign: 'left',
+    });
+    world.add(handTF);
+
+    const bw = 80;
     const actionButton = createButton(
-        cw / 2,
+        cardBlockX,
         cardH * 2.5,
-        400,
-        80,
-        'Place a bet',
+        cw / 2,
+        cardH * 2.5 + bw / 2,
+        cardBlockW - cardGap,
+        bw,
+        'PLACE A BET',
         onAction
     );
     world.add(actionButton);
@@ -178,19 +217,27 @@ function createGame(keyboard) {
             isInit = false;
         }
         setBalanceText();
-        infoTF.setText('');
-        actionButton.setText('Play');
+        handTF.setText('');
+        winTF.setText('');
+        actionButton.setText('SUBMIT');
     }
 
     function setBalanceText() {
         const { errors } = getConstants();
-        const err = errors[balance];
-        const add = err ? ` (${err})` : '';
-        balanceTF.setText(`Balance: ${balance}${add}`);
+        const err = errors[balance] || '';
+        // const add = err ? ` (${err})` : '';
+        errorTF.setText(err);
+        balanceTF.setText(`BALANCE ${balance}`);
     }
 
-    function adjustBalance(actual) {
-        return 404 + ((actual - 418) % 14);
+    function adjustBalance(actualBalance) {
+        if (actualBalance < 404) {
+            return 404;
+        }
+        if (actualBalance < 418) {
+            return actualBalance;
+        }
+        return 404 + ((actualBalance - 418) % 14);
     }
 
     function confirmSelection() {
@@ -198,10 +245,11 @@ function createGame(keyboard) {
         const [name, win] = rateHand(hand);
         balance += win;
         setBalanceText();
+        handTF.setText(name);
         if (win) {
-            infoTF.setText(`${name}, win ${win}`);
+            winTF.setText(`Win ${win}`);
         } else {
-            infoTF.setText('Better luck next time');
+            winTF.setText('Better luck next time');
         }
         setTimeout(onComplete, 1000);
     }
@@ -219,26 +267,23 @@ function createGame(keyboard) {
     function toNextRound() {
         isComplete = true;
         enableControls();
-        actionButton.setText('Place a bet');
-        // infoTF.setText('');
+        actionButton.setText('PLACE A BET');
     }
 
     function onComplete() {
-        if (balance > 418) {
+        if (balance !== 418) {
             balance = adjustBalance(balance);
             setBalanceText();
             toNextRound();
-        } else if (balance < 418) {
-            toNextRound();
         } else {
-            infoTF.setText('You won');
+            // infoTF.setText('You won');
         }
     }
 
     function prepareDraw(index) {
         const i = cardsToReplace.indexOf(index);
         if (i === -1) {
-            actionButton.setText('Deal');
+            actionButton.setText('DEAL AND SUBMIT');
             cardsToReplace.push(index);
             cardBlock.selectCard(index);
         }
@@ -272,7 +317,7 @@ function createGame(keyboard) {
 
 function createHelp() {
     const help = document.querySelector('.help-outer');
-    let isShown = false;
+    let isShown = true;
 
     return { toggle };
 
@@ -286,19 +331,17 @@ roundRectPolyfill();
 const keyboard = createKeyboard();
 const game = createGame(keyboard);
 const help = createHelp();
-// let isFirstRun = true;
+let isFirstRun = true;
 keyboard.subscribe(onKeyup);
-game.init();
 
 // TODO text positions and styles
-// TODO flip horiz
 
 function onKeyup(e) {
     if (e['isEscape']) {
-        // if (isFirstRun) {
-        //     isFirstRun = false;
-        //     game.init();
-        // }
+        if (isFirstRun) {
+            isFirstRun = false;
+            game.init();
+        }
         help.toggle();
     }
 }
@@ -586,12 +629,11 @@ function createBetBlock(x, y, r) {
     }
 }
 
-function createButton(cx, cy, w, h, text, listener) {
+function createButton(x, y, cx, cy, w, h, text, listener) {
     let ctx;
     let isInteractive = false;
-    const x = cx - w / 2;
-    const y = cy - h / 2;
     const r = Math.round(h * 0.1);
+    const fs = Math.round(h * 0.66);
 
     return {
         render,
@@ -628,8 +670,8 @@ function createButton(cx, cy, w, h, text, listener) {
         ctx.fillStyle = '#C35B68';
         ctx.roundRect(x, y, w, h, r);
         ctx.fill();
-        ctx.fillStyle = 'white';
-        ctx.font = `${h / 2}px fantasy`;
+        ctx.fillStyle = '#DCB600';
+        ctx.font = `${fs}px "${window.ff}"`;
         ctx.fillText(text, cx, cy);
         ctx.restore();
     }
@@ -639,11 +681,9 @@ function createButton(cx, cy, w, h, text, listener) {
     }
 }
 
-function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
+function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
     let ctx;
     let cardViews = [];
-    const margin = Math.round(cardHeight * 0.06);
-    const cardWidth = Math.round(cardHeight * 0.66);
 
     return {
         setContext,
@@ -668,11 +708,9 @@ function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
     }
 
     function init() {
-        const bw = margin + 5 * (cardWidth + margin);
-        const x = (canvasWidth - bw) / 2;
         cardViews = Array.from({ length: 5 }, (_, i) => {
-            const cx = x + i * (cardWidth + margin);
-            const view = createCardView(cx, y, cardWidth, cardHeight, margin);
+            const cx = x + i * (cardWidth + cardGap);
+            const view = createCardView(cx, y, cardWidth, cardHeight, cardGap);
             view.setContext(ctx);
             return view;
         });
@@ -683,14 +721,22 @@ function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
     }
 
     function setCards(cards, isInit) {
+        if (isInit) {
+            return cardViews.reduce((accumulatorPromise, view, i) => {
+                return accumulatorPromise.then(() => {
+                    view.setCard(cards[i]);
+                    return view.flip(0.24);
+                });
+            }, Promise.resolve());
+        }
         const tasks = cardViews.map((view, i) => {
             view.setCard(cards[i]);
             return view.flip(0.16);
         });
         return Promise.all(tasks).then(() => {
-            if (isInit) {
-                return Promise.resolve();
-            }
+            // if (isInit) {
+            //     return Promise.resolve();
+            // }
             return cardViews.reduce((accumulatorPromise, view) => {
                 return accumulatorPromise.then(() => {
                     return view.flip(0.24);
@@ -731,7 +777,7 @@ function createCardView(x, y, w, h, margin) {
 
     let isFlipped = true;
     let isSwap = false;
-    let scaleY = 1;
+    let scaleX = 1;
     let add = -0.16;
     let flipResolver = () => {};
 
@@ -755,31 +801,31 @@ function createCardView(x, y, w, h, margin) {
 
     function render() {
         ctx.save();
-        const shiftY = (h - halfMargin) / 2;
-        ctx.translate(x, y + shiftY);
-        ctx.scale(1, scaleY);
+        const shiftX = w / 2;
+        ctx.translate(x + shiftX, y);
+        ctx.scale(scaleX, 1);
         ctx.fillStyle = 'white';
-        ctx.roundRect(0, shiftY * -1, w, h - halfMargin, halfMargin);
+        ctx.roundRect(shiftX * -1, 0, w, h - halfMargin, halfMargin);
         ctx.fill();
         ctx.font = `${h}px sans-serif`;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
         ctx.fillStyle = isFlipped ? '#DCB600' : card.color;
         const text = isFlipped ? back : card.string;
-        ctx.fillText(text, 0, shiftY * -1 + margin);
+        ctx.fillText(text, shiftX * -1, margin);
 
         ctx.restore();
     }
 
     function update() {
         if (isSwap) {
-            scaleY += add;
-            if (scaleY <= 0) {
-                scaleY = 0;
+            scaleX += add;
+            if (scaleX <= 0) {
+                scaleX = 0;
                 add *= -1;
                 isFlipped = !isFlipped;
-            } else if (scaleY >= 1) {
-                scaleY = 1;
+            } else if (scaleX >= 1) {
+                scaleX = 1;
                 add *= -1;
                 isSwap = false;
                 flipResolver();
@@ -838,7 +884,7 @@ function createCoinView(x, y, r) {
 
 function createTextView(text, x, y, style) {
     let ctx;
-    const { fontSize, fill, stroke } = style;
+    const { fontSize, fill, stroke, textAlign, fontFamily = 'system' } = style;
 
     return {
         render,
@@ -852,8 +898,11 @@ function createTextView(text, x, y, style) {
 
     function render() {
         ctx.save();
-        ctx.font = `${fontSize}px fantasy`;
+        ctx.font = `${fontSize}px ${fontFamily}`;
         ctx.fillStyle = fill;
+        if (textAlign) {
+            ctx.textAlign = textAlign;
+        }
         ctx.fillText(text, x, y);
         if (stroke) {
             ctx.strokeStyle = stroke;

@@ -1,9 +1,8 @@
-function createButton(cx, cy, w, h, text, listener) {
+function createButton(x, y, cx, cy, w, h, text, listener) {
     let ctx;
     let isInteractive = false;
-    const x = cx - w / 2;
-    const y = cy - h / 2;
     const r = Math.round(h * 0.1);
+    const fs = Math.round(h * 0.66);
 
     return {
         render,
@@ -40,8 +39,8 @@ function createButton(cx, cy, w, h, text, listener) {
         ctx.fillStyle = '#C35B68';
         ctx.roundRect(x, y, w, h, r);
         ctx.fill();
-        ctx.fillStyle = 'white';
-        ctx.font = `${h / 2}px fantasy`;
+        ctx.fillStyle = '#DCB600';
+        ctx.font = `${fs}px "${window.ff}"`;
         ctx.fillText(text, cx, cy);
         ctx.restore();
     }

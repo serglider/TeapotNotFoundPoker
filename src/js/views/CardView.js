@@ -6,7 +6,7 @@ function createCardView(x, y, w, h, margin) {
 
     let isFlipped = true;
     let isSwap = false;
-    let scaleY = 1;
+    let scaleX = 1;
     let add = -0.16;
     let flipResolver = () => {};
 
@@ -30,31 +30,31 @@ function createCardView(x, y, w, h, margin) {
 
     function render() {
         ctx.save();
-        const shiftY = (h - halfMargin) / 2;
-        ctx.translate(x, y + shiftY);
-        ctx.scale(1, scaleY);
+        const shiftX = w / 2;
+        ctx.translate(x + shiftX, y);
+        ctx.scale(scaleX, 1);
         ctx.fillStyle = 'white';
-        ctx.roundRect(0, shiftY * -1, w, h - halfMargin, halfMargin);
+        ctx.roundRect(shiftX * -1, 0, w, h - halfMargin, halfMargin);
         ctx.fill();
         ctx.font = `${h}px sans-serif`;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
         ctx.fillStyle = isFlipped ? '#DCB600' : card.color;
         const text = isFlipped ? back : card.string;
-        ctx.fillText(text, 0, shiftY * -1 + margin);
+        ctx.fillText(text, shiftX * -1, margin);
 
         ctx.restore();
     }
 
     function update() {
         if (isSwap) {
-            scaleY += add;
-            if (scaleY <= 0) {
-                scaleY = 0;
+            scaleX += add;
+            if (scaleX <= 0) {
+                scaleX = 0;
                 add *= -1;
                 isFlipped = !isFlipped;
-            } else if (scaleY >= 1) {
-                scaleY = 1;
+            } else if (scaleX >= 1) {
+                scaleX = 1;
                 add *= -1;
                 isSwap = false;
                 flipResolver();

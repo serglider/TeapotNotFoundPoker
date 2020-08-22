@@ -1,6 +1,6 @@
 function createTextView(text, x, y, style) {
     let ctx;
-    const { fontSize, fill, stroke } = style;
+    const { fontSize, fill, stroke, textAlign, fontFamily = 'system' } = style;
 
     return {
         render,
@@ -14,8 +14,11 @@ function createTextView(text, x, y, style) {
 
     function render() {
         ctx.save();
-        ctx.font = `${fontSize}px fantasy`;
+        ctx.font = `${fontSize}px ${fontFamily}`;
         ctx.fillStyle = fill;
+        if (textAlign) {
+            ctx.textAlign = textAlign;
+        }
         ctx.fillText(text, x, y);
         if (stroke) {
             ctx.strokeStyle = stroke;

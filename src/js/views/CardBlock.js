@@ -1,8 +1,6 @@
-function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
+function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
     let ctx;
     let cardViews = [];
-    const margin = Math.round(cardHeight * 0.06);
-    const cardWidth = Math.round(cardHeight * 0.66);
 
     return {
         setContext,
@@ -27,11 +25,9 @@ function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
     }
 
     function init() {
-        const bw = margin + 5 * (cardWidth + margin);
-        const x = (canvasWidth - bw) / 2;
         cardViews = Array.from({ length: 5 }, (_, i) => {
-            const cx = x + i * (cardWidth + margin);
-            const view = createCardView(cx, y, cardWidth, cardHeight, margin);
+            const cx = x + i * (cardWidth + cardGap);
+            const view = createCardView(cx, y, cardWidth, cardHeight, cardGap);
             view.setContext(ctx);
             return view;
         });
@@ -42,14 +38,22 @@ function createCardBlock(cardHeight, canvasWidth, y, onCardClick) {
     }
 
     function setCards(cards, isInit) {
+        if (isInit) {
+            return cardViews.reduce((accumulatorPromise, view, i) => {
+                return accumulatorPromise.then(() => {
+                    view.setCard(cards[i]);
+                    return view.flip(0.24);
+                });
+            }, Promise.resolve());
+        }
         const tasks = cardViews.map((view, i) => {
             view.setCard(cards[i]);
             return view.flip(0.16);
         });
         return Promise.all(tasks).then(() => {
-            if (isInit) {
-                return Promise.resolve();
-            }
+            // if (isInit) {
+            //     return Promise.resolve();
+            // }
             return cardViews.reduce((accumulatorPromise, view) => {
                 return accumulatorPromise.then(() => {
                     return view.flip(0.24);

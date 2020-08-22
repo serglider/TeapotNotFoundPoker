@@ -22,7 +22,7 @@ function getConstants() {
             '418': "I'm a teapot",
         },
         hands: [
-            ['Lose', 0],
+            ['', 0],
             ['Jacks or Better Pair', 1],
             ['Two Pair', 2],
             ['Three of a Kind', 3],
