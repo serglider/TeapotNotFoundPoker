@@ -15,7 +15,7 @@ function cleanDist(done) {
 function archive() {
     const d = new Date();
     const version = `${d.getMonth() + 1}_${d.getDate()}_${d.getHours()}`;
-    return src('dist/*')
+    return src('dist/**/*')
         .pipe(zip(`app_${version}.zip`))
         .pipe(dest('submission'));
 }
@@ -30,10 +30,12 @@ function minifyHTML() {
         .pipe(dest('dist'));
 }
 
+function copyAssets() {
+    return src('src/assets/*').pipe(dest('dist/assets/'));
+}
+
 function minifyCSS() {
-    return src('src/*.css')
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(dest('dist'));
+    return src('src/*.css').pipe(cleanCSS()).pipe(dest('dist'));
 }
 
 function compile() {
@@ -72,10 +74,13 @@ function watchSource(done) {
     done();
 }
 
-exports.build = series(cleanDist, parallel(minifyHTML, minifyCSS, compile));
+exports.build = series(
+    cleanDist,
+    parallel(minifyHTML, minifyCSS, copyAssets, compile)
+);
 exports.default = series(
     cleanDist,
-    parallel(minifyHTML, minifyCSS, compileDev)
+    parallel(minifyHTML, minifyCSS, copyAssets, compileDev)
 );
 exports.watch = series(exports.default, startServer, watchSource);
 exports.zip = series(exports.build, archive);

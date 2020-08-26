@@ -9,6 +9,9 @@ function createGame(keyboard) {
     const cardBlockX = (cw - cardBlockW) / 2;
     const infoTextY = cardH - cardGap * 2;
 
+    const teapots = createTeapots(cw);
+    world.add(teapots);
+
     const cardBlock = createCardBlock(
         cardW,
         cardH,
@@ -22,7 +25,7 @@ function createGame(keyboard) {
     const balanceTF = createTextView('', cw / 2, cardH / 3, {
         fill: 'white',
         fontSize: fs,
-        fontFamily: window.ff,
+        fontFamily: 'Fredoka One',
     });
     world.add(balanceTF);
 
@@ -111,9 +114,10 @@ function createGame(keyboard) {
     function setBalanceText() {
         const { errors } = getConstants();
         const err = errors[balance] || '';
-        // const add = err ? ` (${err})` : '';
         errorTF.setText(err);
         balanceTF.setText(`BALANCE ${balance}`);
+        const tn = balance - 404 >= 0 ? balance - 404 : 0;
+        teapots.setNumber(tn);
     }
 
     function adjustBalance(actualBalance) {

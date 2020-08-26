@@ -5,6 +5,14 @@
     src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
 }
 
+@font-face {
+    font-family: 'Fredoka One';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Fredoka One'), local('FredokaOne-Regular'), url(assets/fredoka.woff2) format('woff2');
+}
+
 html,
 body {
     background-color: #668706;

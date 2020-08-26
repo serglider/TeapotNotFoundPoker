@@ -40,7 +40,7 @@ function createButton(x, y, cx, cy, w, h, text, listener) {
         ctx.roundRect(x, y, w, h, r);
         ctx.fill();
         ctx.fillStyle = '#DCB600';
-        ctx.font = `${fs}px "${window.ff}"`;
+        ctx.font = `${fs}px "Fredoka One"`;
         ctx.fillText(text, cx, cy);
         ctx.restore();
     }
