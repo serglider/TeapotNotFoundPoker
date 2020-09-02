@@ -1,8 +1,14 @@
-function createKeyboard() {
+function createKeyboard(isMobile) {
     let listeners = {};
     let keys = [];
+    let lastTouch;
 
-    window.addEventListener('keyup', handleKeyUp);
+    if (isMobile) {
+        window.addEventListener('touchstart', onStart);
+        window.addEventListener('touchend', onEnd);
+    } else {
+        window.addEventListener('keyup', handleKeyUp);
+    }
 
     return {
         subscribe,
@@ -28,6 +34,21 @@ function createKeyboard() {
         keys.forEach((key) => {
             listeners[key](event);
         });
+    }
+
+    function onStart(e) {
+        lastTouch = e.timeStamp;
+    }
+    function onEnd(e) {
+        const diff = e.timeStamp - lastTouch;
+        if (diff > 1000) {
+            const event = {
+                isEscape: true,
+            };
+            keys.forEach((key) => {
+                listeners[key](event);
+            });
+        }
     }
 
     function subscribe(listener) {

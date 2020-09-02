@@ -1,7 +1,7 @@
 function createCardView(x, y, w, h, margin) {
     let ctx;
     let card;
-    const halfMargin = margin / 2;
+    let halfMargin = margin / 2;
     const back = '\ud83c\udcbf';
 
     let isFlipped = true;
@@ -18,7 +18,17 @@ function createCardView(x, y, w, h, margin) {
         getCard,
         isPointInside,
         update,
+        updateLayout,
     };
+
+    function updateLayout({ cx, cardH, cardW, cardGap, cardBlockY }) {
+        y = cardBlockY;
+        x = cx;
+        w = cardW;
+        h = cardH;
+        margin = cardGap;
+        halfMargin = margin / 2;
+    }
 
     function isPointInside(point) {
         return inRange(point.x, x, x + w) && inRange(point.y, y, y + h);

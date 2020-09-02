@@ -12,7 +12,21 @@ function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
         init,
         mouseListener,
         update,
+        updateLayout,
     };
+
+    function updateLayout({ cardH, cardW, cardGap, cardBlockX, cardBlockY }) {
+        cardViews.forEach((view, i) => {
+            const cx = cardBlockX + i * (cardWidth + cardGap);
+            view.updateLayout({
+                cx,
+                cardH,
+                cardW,
+                cardGap,
+                cardBlockY,
+            });
+        });
+    }
 
     function mouseListener(mouse) {
         let i = 0;

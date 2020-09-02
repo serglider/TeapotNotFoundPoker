@@ -6,10 +6,16 @@ function createTextView(text, x, y, style) {
         render,
         setContext,
         setText,
+        setPosition,
     };
 
     function setText(t) {
         text = t;
+    }
+
+    function setPosition(nx, ny) {
+        x = nx;
+        y = ny;
     }
 
     function render() {

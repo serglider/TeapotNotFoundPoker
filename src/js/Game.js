@@ -1,40 +1,46 @@
 function createGame(keyboard) {
     const world = createWorld();
     const [cw, ch] = world.getBounds();
-    const cardH = Math.round(ch * 0.3);
-    const cardW = Math.round(cardH * 0.66);
-    const cardGap = Math.round(cardH * 0.06);
-    const fs = cardGap * 2;
-    const cardBlockW = 5 * (cardW + cardGap);
-    const cardBlockX = (cw - cardBlockW) / 2;
-    const infoTextY = cardH - cardGap * 2;
+    const buttonY = ch * 0.8;
+    let factor = 0.6;
+    let cardH = Math.round(ch * factor);
+    let cardW = Math.round(cardH * 0.66);
+    let cardGap = Math.round(cardH * 0.06);
+    let cardBlockW = 5 * (cardW + cardGap);
+    const balanceY = ch * 0.2;
 
-    const teapots = createTeapots(cw);
-    world.add(teapots);
+    const fs1 = Math.round(ch * 0.045);
+    const fs2 = Math.round(fs1 * 0.75);
+
+    while (cardBlockW > cw) {
+        factor -= 0.05;
+        cardH = Math.round(ch * factor);
+        cardW = Math.round(cardH * 0.66);
+        cardGap = Math.round(cardH * 0.06);
+        cardBlockW = 5 * (cardW + cardGap);
+    }
+
+    const cardBlockX = (cw - cardBlockW + cardGap) / 2;
+    const cardBlockY = (ch - cardH) / 2;
+    const infoTextY = cardBlockY - cardGap * 1.5;
+    const buttonH = Math.round(cardH * 0.2);
 
     const cardBlock = createCardBlock(
         cardW,
         cardH,
         cardBlockX,
-        cardH,
+        cardBlockY,
         cardGap,
         onCardClick
     );
     world.add(cardBlock);
 
-    const balanceTF = createTextView('', cw / 2, cardH / 3, {
+    const balanceTF = createTextView('', cw / 2, balanceY, {
         fill: 'white',
-        fontSize: fs,
+        fontSize: fs1,
         fontFamily: 'Fredoka One',
     });
     world.add(balanceTF);
-
-    const errorTF = createTextView('', cw / 2, cardH / 3 + fs * 2, {
-        fill: '#DCB600',
-        fontSize: fs,
-        fontFamily: 'monospace',
-    });
-    world.add(errorTF);
 
     const winTF = createTextView(
         '',
@@ -42,7 +48,7 @@ function createGame(keyboard) {
         infoTextY,
         {
             fill: 'white',
-            fontSize: fs,
+            fontSize: fs2,
             textAlign: 'right',
         }
     );
@@ -50,37 +56,41 @@ function createGame(keyboard) {
 
     const handTF = createTextView('', cardBlockX, infoTextY, {
         fill: 'white',
-        fontSize: fs,
+        fontSize: fs2,
         textAlign: 'left',
     });
     world.add(handTF);
 
-    const bw = 80;
     const actionButton = createButton(
         cardBlockX,
-        cardH * 2.5,
+        buttonY,
         cw / 2,
-        cardH * 2.5 + bw / 2,
+        buttonY + buttonH / 2,
         cardBlockW - cardGap,
-        bw,
+        buttonH,
         'PLACE A BET',
         onAction
     );
     world.add(actionButton);
 
     let bet = 1;
-    let balance = 404;
+    let balance = 411;
     let isInit = true;
     let deck;
     let cardsToReplace;
     let isComplete;
     let lockKeyboard;
+    let teapots, resultPanel;
 
     return { init };
 
-    function init() {
+    function init(teapot1, teapot2) {
+        teapots = createTeapots(cw, teapot1, teapot2);
+        resultPanel = createResultPanel(cw, ch, teapot1, teapot2);
+        world.add(teapots);
+        world.add(resultPanel);
         cardBlock.init();
-        setBalanceText();
+        displayBalance();
         toNextRound();
     }
 
@@ -94,8 +104,19 @@ function createGame(keyboard) {
         actionButton.setInteractive(false);
     }
 
+    function onLose() {
+        console.log('balance not found');
+    }
+
+    function onWin() {
+        console.log('you win');
+    }
+
     function placeBet() {
         disableControls();
+        if (balance === 404) {
+            return onLose();
+        }
         isComplete = false;
         cardsToReplace = [];
         balance -= bet;
@@ -105,43 +126,42 @@ function createGame(keyboard) {
         if (isInit) {
             isInit = false;
         }
-        setBalanceText();
+        displayBalance();
         handTF.setText('');
         winTF.setText('');
         actionButton.setText('SUBMIT');
     }
 
-    function setBalanceText() {
-        const { errors } = getConstants();
-        const err = errors[balance] || '';
-        errorTF.setText(err);
+    function displayBalance() {
         balanceTF.setText(`BALANCE ${balance}`);
-        const tn = balance - 404 >= 0 ? balance - 404 : 0;
+        const diff = balance - 404;
+        const tn = diff > 14 ? 14 : diff > 0 ? diff : 0;
         teapots.setNumber(tn);
     }
 
     function adjustBalance(actualBalance) {
-        if (actualBalance < 404) {
-            return 404;
+        if (actualBalance > 418) {
+            return 418;
         }
-        if (actualBalance < 418) {
-            return actualBalance;
-        }
-        return 404 + ((actualBalance - 418) % 14);
+        return actualBalance;
     }
 
     function confirmSelection() {
         const hand = cardBlock.getCards();
         const [name, win] = rateHand(hand);
-        balance += win;
-        setBalanceText();
+        balance = adjustBalance(balance + win);
+        displayBalance();
         handTF.setText(name);
         if (win) {
             winTF.setText(`Win ${win}`);
         } else {
             winTF.setText('Better luck next time');
         }
-        setTimeout(onComplete, 1000);
+        if (balance === 418) {
+            onWin();
+        } else {
+            toNextRound();
+        }
     }
 
     function onAction() {
@@ -158,16 +178,6 @@ function createGame(keyboard) {
         isComplete = true;
         enableControls();
         actionButton.setText('PLACE A BET');
-    }
-
-    function onComplete() {
-        if (balance !== 418) {
-            balance = adjustBalance(balance);
-            setBalanceText();
-            toNextRound();
-        } else {
-            // infoTF.setText('You won');
-        }
     }
 
     function prepareDraw(index) {
