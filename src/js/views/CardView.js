@@ -1,7 +1,5 @@
-function createCardView(x, y, w, h, margin) {
-    let ctx;
-    let card;
-    let halfMargin = margin / 2;
+function createCardView() {
+    let card, x, y, w, h, margin, halfMargin;
     const back = '\ud83c\udcbf';
 
     let isFlipped = true;
@@ -12,7 +10,6 @@ function createCardView(x, y, w, h, margin) {
 
     return {
         render,
-        setContext,
         flip,
         setCard,
         getCard,
@@ -38,7 +35,7 @@ function createCardView(x, y, w, h, margin) {
         return value >= Math.min(min, max) && value <= Math.max(min, max);
     }
 
-    function render() {
+    function render(ctx) {
         ctx.save();
         const shiftX = w / 2;
         ctx.translate(x + shiftX, y);
@@ -86,9 +83,5 @@ function createCardView(x, y, w, h, margin) {
         return new Promise((resolve) => {
             flipResolver = resolve;
         });
-    }
-
-    function setContext(c) {
-        ctx = c;
     }
 }

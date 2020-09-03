@@ -1,9 +1,7 @@
-function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
-    let ctx;
+function createCardBlock(onCardClick) {
     let cardViews = [];
 
     return {
-        setContext,
         render,
         selectCard,
         replaceCards,
@@ -17,7 +15,7 @@ function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
 
     function updateLayout({ cardH, cardW, cardGap, cardBlockX, cardBlockY }) {
         cardViews.forEach((view, i) => {
-            const cx = cardBlockX + i * (cardWidth + cardGap);
+            const cx = cardBlockX + i * (cardW + cardGap);
             view.updateLayout({
                 cx,
                 cardH,
@@ -39,12 +37,7 @@ function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
     }
 
     function init() {
-        cardViews = Array.from({ length: 5 }, (_, i) => {
-            const cx = x + i * (cardWidth + cardGap);
-            const view = createCardView(cx, y, cardWidth, cardHeight, cardGap);
-            view.setContext(ctx);
-            return view;
-        });
+        cardViews = Array.from({ length: 5 }, () => createCardView());
     }
 
     function update() {
@@ -76,12 +69,8 @@ function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
         });
     }
 
-    function render() {
-        cardViews.forEach((view) => view.render());
-    }
-
-    function setContext(c) {
-        ctx = c;
+    function render(ctx) {
+        cardViews.forEach((view) => view.render(ctx));
     }
 
     function selectCard(index) {

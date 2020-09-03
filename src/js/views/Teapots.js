@@ -1,10 +1,8 @@
-function createTeapots(cw, img1, img2) {
-    let ctx, num, dx, scale, w;
-    updateLayout({ cw });
+function createTeapots(img1, img2) {
+    let num, dx, scale, w;
 
     return {
         render,
-        setContext,
         setNumber,
         updateLayout,
     };
@@ -23,7 +21,7 @@ function createTeapots(cw, img1, img2) {
         num = n;
     }
 
-    function render() {
+    function render(ctx) {
         ctx.save();
         ctx.scale(scale, scale);
         for (let i = 0; i < 14; i++) {
@@ -32,9 +30,5 @@ function createTeapots(cw, img1, img2) {
             ctx.drawImage(img, (dx * i + f) / scale, 0);
         }
         ctx.restore();
-    }
-
-    function setContext(c) {
-        ctx = c;
     }
 }

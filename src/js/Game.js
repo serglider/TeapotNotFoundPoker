@@ -1,77 +1,19 @@
 function createGame(keyboard) {
-    const world = createWorld();
-    const [cw, ch] = world.getBounds();
-    const buttonY = ch * 0.8;
-    let factor = 0.6;
-    let cardH = Math.round(ch * factor);
-    let cardW = Math.round(cardH * 0.66);
-    let cardGap = Math.round(cardH * 0.06);
-    let cardBlockW = 5 * (cardW + cardGap);
-    const balanceY = ch * 0.2;
-
-    const fs1 = Math.round(ch * 0.045);
-    const fs2 = Math.round(fs1 * 0.75);
-
-    while (cardBlockW > cw) {
-        factor -= 0.05;
-        cardH = Math.round(ch * factor);
-        cardW = Math.round(cardH * 0.66);
-        cardGap = Math.round(cardH * 0.06);
-        cardBlockW = 5 * (cardW + cardGap);
-    }
-
-    const cardBlockX = (cw - cardBlockW + cardGap) / 2;
-    const cardBlockY = (ch - cardH) / 2;
-    const infoTextY = cardBlockY - cardGap * 1.5;
-    const buttonH = Math.round(cardH * 0.2);
-
-    const cardBlock = createCardBlock(
-        cardW,
-        cardH,
-        cardBlockX,
-        cardBlockY,
-        cardGap,
-        onCardClick
-    );
-    world.add(cardBlock);
-
-    const balanceTF = createTextView('', cw / 2, balanceY, {
+    const world = createWorld(onUpdateLayout);
+    const cardBlock = createCardBlock(onCardClick);
+    const balanceTF = createTextView({
         fill: 'white',
-        fontSize: fs1,
         fontFamily: 'Fredoka One',
     });
-    world.add(balanceTF);
-
-    const winTF = createTextView(
-        '',
-        cardBlockW + cardBlockX - cardGap,
-        infoTextY,
-        {
-            fill: 'white',
-            fontSize: fs2,
-            textAlign: 'right',
-        }
-    );
-    world.add(winTF);
-
-    const handTF = createTextView('', cardBlockX, infoTextY, {
+    const winTF = createTextView({
         fill: 'white',
-        fontSize: fs2,
+        textAlign: 'right',
+    });
+    const handTF = createTextView({
+        fill: 'white',
         textAlign: 'left',
     });
-    world.add(handTF);
-
-    const actionButton = createButton(
-        cardBlockX,
-        buttonY,
-        cw / 2,
-        buttonY + buttonH / 2,
-        cardBlockW - cardGap,
-        buttonH,
-        'PLACE A BET',
-        onAction
-    );
-    world.add(actionButton);
+    const actionButton = createActionButton(onAction);
 
     let bet = 1;
     let balance = 411;
@@ -84,14 +26,44 @@ function createGame(keyboard) {
 
     return { init };
 
+    function onUpdateLayout(data) {
+        const {
+            cw,
+            cardGap,
+            cardBlockX,
+            cardBlockW,
+            infoTextY,
+            balanceY,
+            fs1,
+            fs2,
+        } = data;
+        balanceTF.setPosition(cw / 2, balanceY);
+        balanceTF.setFontSize(fs1);
+
+        winTF.setPosition(cardBlockW + cardBlockX - cardGap, infoTextY);
+        winTF.setFontSize(fs2);
+
+        handTF.setPosition(cardBlockX, infoTextY);
+        handTF.setFontSize(fs2);
+    }
+
     function init(teapot1, teapot2) {
-        teapots = createTeapots(cw, teapot1, teapot2);
-        resultPanel = createResultPanel(cw, ch, teapot1, teapot2);
-        world.add(teapots);
-        world.add(resultPanel);
+        teapots = createTeapots(teapot1, teapot2);
+        resultPanel = createResultPanel(teapot1, teapot2);
+        world.add(
+            cardBlock,
+            balanceTF,
+            winTF,
+            handTF,
+            actionButton,
+            teapots,
+            resultPanel
+        );
         cardBlock.init();
+        actionButton.setText('PLACE A BET');
         displayBalance();
         toNextRound();
+        world.start();
     }
 
     function enableControls() {
@@ -106,10 +78,12 @@ function createGame(keyboard) {
 
     function onLose() {
         console.log('balance not found');
+        world.stop();
     }
 
     function onWin() {
         console.log('you win');
+        world.stop();
     }
 
     function placeBet() {

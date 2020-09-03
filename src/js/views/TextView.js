@@ -1,12 +1,16 @@
-function createTextView(text, x, y, style) {
-    let ctx;
-    const { fontSize, fill, stroke, textAlign, fontFamily = 'system' } = style;
+function createTextView(style) {
+    let text = '',
+        x,
+        y,
+        fs;
+    let { fill, stroke, textAlign, fontFamily = 'system' } = style;
 
     return {
         render,
-        setContext,
         setText,
         setPosition,
+        setFontSize,
+        setContext,
     };
 
     function setText(t) {
@@ -18,9 +22,13 @@ function createTextView(text, x, y, style) {
         y = ny;
     }
 
-    function render() {
+    function setFontSize(fontSize) {
+        fs = fontSize;
+    }
+
+    function render(ctx) {
         ctx.save();
-        ctx.font = `${fontSize}px ${fontFamily}`;
+        ctx.font = `${fs}px ${fontFamily}`;
         ctx.fillStyle = fill;
         if (textAlign) {
             ctx.textAlign = textAlign;
@@ -34,6 +42,6 @@ function createTextView(text, x, y, style) {
     }
 
     function setContext(c) {
-        ctx = c;
+        // ctx = c;
     }
 }

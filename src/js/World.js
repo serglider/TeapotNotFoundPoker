@@ -1,10 +1,11 @@
-function createWorld() {
+function createWorld(onUpdateLayout) {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
     let objects = [];
     let dynamicObjects = [];
     let mouseListeners = [];
     let resizeObjects = [];
+    let isStarted = false;
 
     canvas.addEventListener('touchstart', onClick);
     canvas.addEventListener('click', onClick);
@@ -17,6 +18,8 @@ function createWorld() {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.lineJoin = 'round';
+
+        const isLandscape = canvas.width > canvas.height;
 
         const cw = canvas.width;
         const ch = canvas.height;
@@ -31,6 +34,8 @@ function createWorld() {
         const fs1 = Math.round(ch * 0.045);
         const fs2 = Math.round(fs1 * 0.75);
 
+        console.log({ fs1, fs2 });
+
         while (cardBlockW > cw) {
             factor -= 0.05;
             cardH = Math.round(ch * factor);
@@ -42,20 +47,29 @@ function createWorld() {
         const cardBlockX = (cw - cardBlockW + cardGap) / 2;
         const cardBlockY = (ch - cardH) / 2;
         const infoTextY = cardBlockY - cardGap * 1.5;
-        const buttonH = Math.round(cardH * 0.2);
+        const buttonHFactor = isLandscape ? 0.2 : 0.4;
+        const buttonH = Math.round(cardH * buttonHFactor);
 
         const data = {
-            orientation:
-                canvas.width > canvas.height ? 'landscape' : 'portrait',
+            // orientation:
+            //     canvas.width > canvas.height ? 'landscape' : 'portrait',
             cw,
             ch,
             cardH,
             cardW,
             cardGap,
+            cardBlockW,
             cardBlockX,
             cardBlockY,
+            balanceY,
+            buttonY,
+            infoTextY,
+            buttonH,
+            fs1,
+            fs2,
         };
         resizeObjects.forEach((obj) => obj.updateLayout(data));
+        onUpdateLayout(data);
     }
 
     canvas.width = window.innerWidth;
@@ -69,15 +83,28 @@ function createWorld() {
     return {
         getBounds,
         add,
-        // reset,
+        start,
+        stop,
     };
+
+    function start() {
+        onResize();
+        isStarted = true;
+    }
+
+    function stop() {
+        isStarted = false;
+    }
 
     function getBounds() {
         return [canvas.width, canvas.height];
     }
 
-    function add(obj) {
-        obj.setContext(ctx);
+    function add(...args) {
+        args.forEach((o) => addObj(o));
+    }
+
+    function addObj(obj) {
         objects.push(obj);
         if (typeof obj.mouseListener === 'function') {
             mouseListeners.push(obj.mouseListener);
@@ -110,9 +137,11 @@ function createWorld() {
     // }
 
     function loop(t) {
-        update(t);
-        clear();
-        render();
+        if (isStarted) {
+            update(t);
+            clear();
+            render();
+        }
         requestAnimationFrame(loop);
     }
 
@@ -125,6 +154,6 @@ function createWorld() {
     }
 
     function render() {
-        objects.forEach((obj) => obj.render());
+        objects.forEach((obj) => obj.render(ctx));
     }
 }
