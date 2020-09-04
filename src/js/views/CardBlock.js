@@ -1,5 +1,6 @@
 function createCardBlock(onCardClick) {
     let cardViews = [];
+    let isInteractive = false;
 
     return {
         render,
@@ -7,8 +8,10 @@ function createCardBlock(onCardClick) {
         replaceCards,
         getCards,
         setCards,
+        flipBack,
         init,
         mouseListener,
+        setInteractive,
         update,
         updateLayout,
     };
@@ -26,14 +29,20 @@ function createCardBlock(onCardClick) {
         });
     }
 
+    function setInteractive(isActive) {
+        isInteractive = isActive;
+    }
+
     function mouseListener(mouse) {
-        let i = 0;
-        for (; i < 5; i++) {
-            if (cardViews[i].isPointInside(mouse)) {
-                break;
+        if (isInteractive) {
+            let i = 0;
+            for (; i < 5; i++) {
+                if (cardViews[i].isPointInside(mouse)) {
+                    break;
+                }
             }
+            onCardClick(i);
         }
-        onCardClick(i);
     }
 
     function init() {
@@ -58,15 +67,16 @@ function createCardBlock(onCardClick) {
             return view.flip(0.16);
         });
         return Promise.all(tasks).then(() => {
-            // if (isInit) {
-            //     return Promise.resolve();
-            // }
             return cardViews.reduce((accumulatorPromise, view) => {
                 return accumulatorPromise.then(() => {
                     return view.flip(0.24);
                 });
             }, Promise.resolve());
         });
+    }
+
+    function flipBack() {
+        cardViews.forEach((view) => view.flipBack());
     }
 
     function render(ctx) {

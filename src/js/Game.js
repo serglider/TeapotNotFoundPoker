@@ -49,7 +49,7 @@ function createGame(keyboard) {
 
     function init(teapot1, teapot2) {
         teapots = createTeapots(teapot1, teapot2);
-        resultPanel = createResultPanel(teapot1, teapot2);
+        resultPanel = createResultPanel(teapot1, teapot2, onRestart);
         world.add(
             cardBlock,
             balanceTF,
@@ -66,31 +66,39 @@ function createGame(keyboard) {
         world.start();
     }
 
+    function onRestart() {
+        balance = 411;
+        isInit = true;
+        cardBlock.flipBack();
+        handTF.setText('');
+        winTF.setText('');
+        displayBalance();
+        toNextRound();
+        resultPanel.hide();
+    }
+
     function enableControls() {
         lockKeyboard = keyboard.subscribe(onKey);
         actionButton.setInteractive(true);
+        cardBlock.setInteractive(true);
     }
 
     function disableControls() {
         lockKeyboard();
         actionButton.setInteractive(false);
+        cardBlock.setInteractive(false);
     }
 
     function onLose() {
-        console.log('balance not found');
-        world.stop();
+        resultPanel.show(false);
     }
 
     function onWin() {
-        console.log('you win');
-        world.stop();
+        resultPanel.show(true);
     }
 
     function placeBet() {
         disableControls();
-        if (balance === 404) {
-            return onLose();
-        }
         isComplete = false;
         cardsToReplace = [];
         balance -= bet;
@@ -133,6 +141,8 @@ function createGame(keyboard) {
         }
         if (balance === 418) {
             onWin();
+        } else if (balance === 404) {
+            onLose();
         } else {
             toNextRound();
         }

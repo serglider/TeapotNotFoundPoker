@@ -11,6 +11,7 @@ function createCardView() {
     return {
         render,
         flip,
+        flipBack,
         setCard,
         getCard,
         isPointInside,
@@ -83,5 +84,9 @@ function createCardView() {
         return new Promise((resolve) => {
             flipResolver = resolve;
         });
+    }
+
+    function flipBack() {
+        isFlipped = true;
     }
 }

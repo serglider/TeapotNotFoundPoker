@@ -34,7 +34,7 @@ function createWorld(onUpdateLayout) {
         const fs1 = Math.round(ch * 0.045);
         const fs2 = Math.round(fs1 * 0.75);
 
-        console.log({ fs1, fs2 });
+        // console.log({ fs1, fs2 });
 
         while (cardBlockW > cw) {
             factor -= 0.05;
