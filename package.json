@@ -5,7 +5,8 @@
     "main": "",
     "scripts": {
         "start": "gulp watch",
-        "build": "gulp build"
+        "build": "gulp build",
+        "zip": "gulp zip"
     },
     "author": "Sergey Chernykh",
     "license": "MIT",

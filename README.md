@@ -24,12 +24,19 @@ Your initial balance is **411**, and you need to reach **418** and officially be
 - **toggle the help panel** - desktop: press ESC, mobile: long press
 - **restart the game** - click/tap anywhere
 
-### Installation
+## Installation
 
 1. Clone the repo
 2. ```npm i```
 3. ```npm start```
 4. Enjoy
+
+## Distribution
+
+The built game lives in the ```docs``` folder due to the way Github Pages work currently. 
+
+To build your version use ```gulp buld``` or ```npm run build```
+To get the game packed into archive use ```gulp zip``` or ```npm run zip``` 
 
 ### License
 
