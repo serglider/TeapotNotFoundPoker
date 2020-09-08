@@ -27,15 +27,15 @@ function minifyHTML() {
                 collapseWhitespace: true,
             })
         )
-        .pipe(dest('dist'));
+        .pipe(dest('docs'));
 }
 
 function copyAssets() {
-    return src('src/assets/*').pipe(dest('dist/assets/'));
+    return src('src/assets/*').pipe(dest('docs/assets/'));
 }
 
 function minifyCSS() {
-    return src('src/*.css').pipe(cleanCSS()).pipe(dest('dist'));
+    return src('src/*.css').pipe(cleanCSS()).pipe(dest('docs'));
 }
 
 function compile() {
@@ -48,7 +48,7 @@ function compile() {
                 js_output_file: 'app.js',
             })
         )
-        .pipe(dest('dist'));
+        .pipe(dest('docs'));
 }
 
 function compileDev() {
