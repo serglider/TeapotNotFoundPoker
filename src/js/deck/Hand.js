@@ -50,7 +50,7 @@ function rateHand(cards) {
         } else if (rb['2'].length === 2) {
             rate = hands[2];
         } else if (rb['2'].length === 1) {
-            const isBetter = rb['2'][0].every((card) => card.value > 8);
+            const isBetter = rb['2'][0].every((card) => card.value > 2);
             if (isBetter) {
                 rate = hands[1];
             }

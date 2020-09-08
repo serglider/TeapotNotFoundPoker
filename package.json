@@ -22,7 +22,8 @@
         "gulp-htmlmin": "^5.0.1",
         "gulp-uglify": "^3.0.2",
         "gulp-zip": "^5.0.2",
-        "prettier": "^2.0.5"
+        "prettier": "^2.0.5",
+        "google-closure-compiler": "^20200719.0.0"
     },
     "prettier": {
         "trailingComma": "es5",
@@ -31,7 +32,5 @@
         "singleQuote": true,
         "quoteProps": "preserve"
     },
-    "dependencies": {
-        "google-closure-compiler": "^20200719.0.0"
-    }
+    "dependencies": {}
 }

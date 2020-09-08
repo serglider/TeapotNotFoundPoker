@@ -1,36 +1,52 @@
-function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
-    let ctx;
+function createCardBlock(onCardClick) {
     let cardViews = [];
+    let isInteractive = false;
 
     return {
-        setContext,
         render,
         selectCard,
         replaceCards,
         getCards,
         setCards,
+        flipBack,
         init,
         mouseListener,
+        setInteractive,
         update,
+        updateLayout,
     };
 
+    function updateLayout({ cardH, cardW, cardGap, cardBlockX, cardBlockY }) {
+        cardViews.forEach((view, i) => {
+            const cx = cardBlockX + i * (cardW + cardGap);
+            view.updateLayout({
+                cx,
+                cardH,
+                cardW,
+                cardGap,
+                cardBlockY,
+            });
+        });
+    }
+
+    function setInteractive(isActive) {
+        isInteractive = isActive;
+    }
+
     function mouseListener(mouse) {
-        let i = 0;
-        for (; i < 5; i++) {
-            if (cardViews[i].isPointInside(mouse)) {
-                break;
+        if (isInteractive) {
+            let i = 0;
+            for (; i < 5; i++) {
+                if (cardViews[i].isPointInside(mouse)) {
+                    break;
+                }
             }
+            onCardClick(i);
         }
-        onCardClick(i);
     }
 
     function init() {
-        cardViews = Array.from({ length: 5 }, (_, i) => {
-            const cx = x + i * (cardWidth + cardGap);
-            const view = createCardView(cx, y, cardWidth, cardHeight, cardGap);
-            view.setContext(ctx);
-            return view;
-        });
+        cardViews = Array.from({ length: 5 }, () => createCardView());
     }
 
     function update() {
@@ -51,9 +67,6 @@ function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
             return view.flip(0.16);
         });
         return Promise.all(tasks).then(() => {
-            // if (isInit) {
-            //     return Promise.resolve();
-            // }
             return cardViews.reduce((accumulatorPromise, view) => {
                 return accumulatorPromise.then(() => {
                     return view.flip(0.24);
@@ -62,12 +75,12 @@ function createCardBlock(cardWidth, cardHeight, x, y, cardGap, onCardClick) {
         });
     }
 
-    function render() {
-        cardViews.forEach((view) => view.render());
+    function flipBack() {
+        cardViews.forEach((view) => view.flipBack());
     }
 
-    function setContext(c) {
-        ctx = c;
+    function render(ctx) {
+        cardViews.forEach((view) => view.render(ctx));
     }
 
     function selectCard(index) {
