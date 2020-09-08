@@ -52,13 +52,13 @@ function compile() {
 }
 
 function compileDev() {
-    return src('src/js/**/*.js').pipe(concat('app.js')).pipe(dest('dist'));
+    return src('src/js/**/*.js').pipe(concat('app.js')).pipe(dest('docs'));
 }
 
 function startServer(done) {
     browserSync.init({
         server: {
-            baseDir: './dist/',
+            baseDir: './docs/',
         },
     });
     done();

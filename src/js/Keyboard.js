@@ -42,9 +42,9 @@ function createKeyboard(isMobile) {
     function onEnd(e) {
         const diff = e.timeStamp - lastTouch;
         if (diff > 1000) {
-            const event = {
-                isEscape: true,
-            };
+            const key = 'isEscape';
+            const event = {};
+            event[key] = true;
             keys.forEach((key) => {
                 listeners[key](event);
             });
