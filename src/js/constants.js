@@ -2,7 +2,7 @@ function getConstants() {
     return {
         hands: [
             ['', 0],
-            ['Jacks or Better Pair', 1],
+            ['Fours or Better Pair', 1],
             ['Two Pair', 2],
             ['Three of a Kind', 3],
             ['Straight', 4],

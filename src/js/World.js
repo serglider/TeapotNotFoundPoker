@@ -7,6 +7,16 @@ function createWorld(onUpdateLayout) {
     let resizeObjects = [];
     let isStarted = false;
 
+    // ctx.save();
+    // ctx.fill();
+    // ctx.font = `100px system`;
+    // const back1 = '\ud83c\udcbf';
+    // const back2 = '\uD83C\uDCA0';
+    // const as = '\ud83c\udca1';
+    // let { width } = ctx.measureText(as);
+    // console.log(width);
+    // ctx.restore();
+
     canvas.addEventListener('touchstart', onClick);
     canvas.addEventListener('click', onClick);
 
@@ -29,12 +39,9 @@ function createWorld(onUpdateLayout) {
         let cardW = Math.round(cardH * 0.66);
         let cardGap = Math.round(cardH * 0.06);
         let cardBlockW = 5 * (cardW + cardGap);
-        const balanceY = ch * 0.2;
 
         const fs1 = Math.round(ch * 0.045);
         const fs2 = Math.round(fs1 * 0.75);
-
-        // console.log({ fs1, fs2 });
 
         while (cardBlockW > cw) {
             factor -= 0.05;
@@ -46,13 +53,12 @@ function createWorld(onUpdateLayout) {
 
         const cardBlockX = (cw - cardBlockW + cardGap) / 2;
         const cardBlockY = (ch - cardH) / 2;
-        const infoTextY = cardBlockY - cardGap * 1.5;
+        const infoTextY = cardBlockY - fs2;
+        const balanceY = Math.min(cardBlockY - fs1 * 2, ch * 0.2);
         const buttonHFactor = isLandscape ? 0.2 : 0.4;
         const buttonH = Math.round(cardH * buttonHFactor);
 
         const data = {
-            // orientation:
-            //     canvas.width > canvas.height ? 'landscape' : 'portrait',
             cw,
             ch,
             cardH,
@@ -81,7 +87,6 @@ function createWorld(onUpdateLayout) {
     requestAnimationFrame(loop);
 
     return {
-        getBounds,
         add,
         start,
         stop,
@@ -94,10 +99,6 @@ function createWorld(onUpdateLayout) {
 
     function stop() {
         isStarted = false;
-    }
-
-    function getBounds() {
-        return [canvas.width, canvas.height];
     }
 
     function add(...args) {
@@ -129,12 +130,6 @@ function createWorld(onUpdateLayout) {
             y: e.pageY - bcr.top,
         };
     }
-
-    // function reset() {
-    //     objects = [];
-    //     dynamicObjects = [];
-    //     mouseListeners = [];
-    // }
 
     function loop(t) {
         if (isStarted) {

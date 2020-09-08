@@ -1,12 +1,14 @@
 function createCardView() {
     let card, x, y, w, h, margin, halfMargin;
-    const back = '\ud83c\udcbf';
+    // const back = '\ud83c\udcbf';
+    const back = '\uD83C\uDCA0';
 
     let isFlipped = true;
     let isSwap = false;
     let scaleX = 1;
     let add = -0.16;
     let flipResolver = () => {};
+    const isFF = navigator.userAgent.includes('Firefox');
 
     return {
         render,
@@ -24,8 +26,8 @@ function createCardView() {
         x = cx;
         w = cardW;
         h = cardH;
-        margin = cardGap;
-        halfMargin = margin / 2;
+        margin = isFF ? cardGap / 2 : cardGap;
+        halfMargin = cardGap / 2;
     }
 
     function isPointInside(point) {
@@ -44,7 +46,7 @@ function createCardView() {
         ctx.fillStyle = 'white';
         ctx.roundRect(shiftX * -1, 0, w, h - halfMargin, halfMargin);
         ctx.fill();
-        ctx.font = `${h}px sans-serif`;
+        ctx.font = `${h}px system`;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
         ctx.fillStyle = isFlipped ? '#DCB600' : card.color;

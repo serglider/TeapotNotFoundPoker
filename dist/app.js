@@ -1,14 +1,1188 @@
-'use strict';function E(){return{Y:[["",0],["Jacks or Better Pair",1],["Two Pair",2],["Three of a Kind",3],["Straight",4],["Flush",6],["Full House",9],["Four of a Kind",12],["Straight Flush",15],["Royal Flush",18]],K:"23456789tjqka".split(""),ja:["s","h","c","d"],S:{s:"#1F191B",c:"#1F191B",h:"#CB1728",d:"#CB1728"},ia:{as:"\ud83c\udca1",ah:"\ud83c\udcb1",ad:"\ud83c\udcc1",ac:"\ud83c\udcd1","2s":"\ud83c\udca2","2h":"\ud83c\udcb2","2d":"\ud83c\udcc2","2c":"\ud83c\udcd2","3s":"\ud83c\udca3","3h":"\ud83c\udcb3",
-"3d":"\ud83c\udcc3","3c":"\ud83c\udcd3","4s":"\ud83c\udca4","4h":"\ud83c\udcb4","4d":"\ud83c\udcc4","4c":"\ud83c\udcd4","5s":"\ud83c\udca5","5h":"\ud83c\udcb5","5d":"\ud83c\udcc5","5c":"\ud83c\udcd5","6s":"\ud83c\udca6","6h":"\ud83c\udcb6","6d":"\ud83c\udcc6","6c":"\ud83c\udcd6","7s":"\ud83c\udca7","7h":"\ud83c\udcb7","7d":"\ud83c\udcc7","7c":"\ud83c\udcd7","8s":"\ud83c\udca8","8h":"\ud83c\udcb8","8d":"\ud83c\udcc8","8c":"\ud83c\udcd8","9s":"\ud83c\udca9","9h":"\ud83c\udcb9","9d":"\ud83c\udcc9","9c":"\ud83c\udcd9",
-ts:"\ud83c\udcaa",th:"\ud83c\udcba",td:"\ud83c\udcca",tc:"\ud83c\udcda",js:"\ud83c\udcab",jh:"\ud83c\udcbb",jd:"\ud83c\udccb",jc:"\ud83c\udcdb",qs:"\ud83c\udcad",qh:"\ud83c\udcbd",qd:"\ud83c\udccd",qc:"\ud83c\udcdd",ks:"\ud83c\udcae",kh:"\ud83c\udcbe",kd:"\ud83c\udcce",kc:"\ud83c\udcde"}}};CanvasRenderingContext2D.prototype.L=function(g,d,m,a,b){m<2*b&&(b=m/2);a<2*b&&(b=a/2);this.beginPath();this.moveTo(g+b,d);this.arcTo(g+m,d,g+m,d+a,b);this.arcTo(g+m,d+a,g,d+a,b);this.arcTo(g,d+a,g,d,b);this.arcTo(g,d,g+m,d,b);this.closePath()};
-const H=G(),T=function(g){function d(){n=411;v=!0;u.C();k.a("");r.a("");a();l();C.Z()}function m(){z=g.subscribe(f);h.f(!0);u.f(!0)}function a(){x.a(`BALANCE ${n}`);const q=n-404;D.ga(14<q?14:0<q?q:0)}function b(){if(y){z();h.f(!1);u.f(!1);y=!1;w=[];--n;t=I();var q=t.J(5);u.fa(q,v).then(m);v&&(v=!1);a();k.a("");r.a("");h.a("SUBMIT")}else{z();h.f(!1);u.f(!1);c();{q=u.X();const [A,B]=J(q);q=n+B;n=418<q?418:q;a();k.a(A);B?r.a(`Win ${B}`):r.a("Better luck next time");418===n?C.show(!0):404===n?C.show(!1):
-l()}}}function l(){y=!0;m();h.a("PLACE A BET")}function e(q){-1===w.indexOf(q)&&(h.a("DEAL AND SUBMIT"),w.push(q),u.ea(q))}function c(){if(w.length){const q=t.J(w.length),A=w.map((B,F)=>[B,q[F]]);u.da(A)}}function f(q){!y&&q.aa&&0<q.B&&6>q.B?e(q.B-1):q.ca&&b()}const p=M(function(q){const A=q.i,B=q.o,F=q.I,K=q.$,S=q.U,L=q.V;x.setPosition(q.l/2,q.O);x.H(S);r.setPosition(F+B-A,K);r.H(L);k.setPosition(B,K);k.H(L)}),u=N(function(q){!y&&0<=q&&5>q&&e(q)}),x=O({fill:"white",fontFamily:"Fredoka One"}),r=O({fill:"white",
-textAlign:"right"}),k=O({fill:"white",textAlign:"left"}),h=P(b);let n=411,v=!0,t,w,y,z,D,C;return{D:function(q,A){D=Q(q,A);C=R(q,A,d);p.add(u,x,r,k,h,D,C);u.D();h.a("PLACE A BET");a();l();p.start()}}}(H),U=function(){const g=document.querySelector(".help-outer");let d=!0;return{toggle:function(){d=!d;g.style.display=d?"table":"none"}}}();let V=!1;const W=new Image;W.onload=X;W.src="assets/teapot_y.svg";const Y=new Image;Y.onload=X;Y.src="assets/teapot_p.svg";
-function X(){V?(H.subscribe(Z),setTimeout(()=>{T.D(W,Y)},0)):V=!0}function Z(g){g.isEscape&&U.toggle()};function G(){function g(e){const c=Number(e.key),f={};" "===e.key?f.ca=!0:Number.isInteger(c)?(f.B=c,f.aa=!0):f[`is${e.key}`]=!0;b.forEach(p=>{a[p](f)})}function d(e){l=e.timeStamp}function m(e){if(1E3<e.timeStamp-l){const c={la:!0};b.forEach(f=>{a[f](c)})}}let a={},b=[],l;"ontouchstart"in window?(window.addEventListener("touchstart",d),window.addEventListener("touchend",m)):window.addEventListener("keyup",g);return{subscribe:function(e){const c=Date.now();a[c]=e;b=Object.keys(a);return function(){delete a[c];
-b=Object.keys(a)}},reset:function(){a={};b=[]}}};function M(g){function d(){c.width=window.innerWidth;c.height=window.innerHeight;f.textAlign="center";f.textBaseline="middle";f.lineJoin="round";const h=c.width>c.height,n=c.width,v=c.height;var t=.6;let w=Math.round(v*t),y=Math.round(.66*w),z=Math.round(.06*w),D=5*(y+z);const C=Math.round(.045*v),q=Math.round(.75*C);for(;D>n;)t-=.05,w=Math.round(v*t),y=Math.round(.66*w),z=Math.round(.06*w),D=5*(y+z);t=(v-w)/2;const A={l:n,ch:v,v:w,A:y,i:z,I:D,o:(n-D+z)/2,u:t,O:.2*v,R:.8*v,$:t-1.5*z,P:Math.round(w*
-(h?.2:.4)),U:C,V:q};r.forEach(B=>B.g(A));g(A)}function m(h){const n=a(h);x.forEach(v=>v(n))}function a(h){const n=c.getBoundingClientRect();return{x:h.pageX-n.left,y:h.pageY-n.top}}function b(h){k&&(l(h),f.clearRect(0,0,c.width,c.height),e());requestAnimationFrame(b)}function l(h){u.forEach(n=>n.update(h))}function e(){p.forEach(h=>h.b(f))}const c=document.querySelector("canvas"),f=c.getContext("2d");let p=[],u=[],x=[],r=[],k=!1;c.addEventListener("touchstart",m);c.addEventListener("click",m);window.addEventListener("resize",
-d);c.width=window.innerWidth;c.height=window.innerHeight;f.textAlign="center";f.textBaseline="middle";f.lineJoin="round";requestAnimationFrame(b);return{ka:function(){return[c.width,c.height]},add:function(...h){h.forEach(n=>{p.push(n);"function"===typeof n.m&&x.push(n.m);"function"===typeof n.update&&u.push(n);"function"===typeof n.g&&r.push(n)})},start:function(){d();k=!0},stop:function(){k=!1}}};function I(){const {ja:g,K:d}=E(),m=g.reduce((a,b)=>{const l=d.map(e=>{{const {ia:c,K:f,S:p}=E();e={F:e,M:b,value:f.indexOf(e),ha:c[e+b],color:p[b]}}return e});return[...a,...l]},[]);for(let a=m.length-1;0<a;a--){const b=Math.floor(Math.random()*(a+1));[m[a],m[b]]=[m[b],m[a]]}return{J:function(a){return m.splice(-1*a)}}};function J(g){const {Y:d}=E(),m=[...g].sort(function(c,f){return c.value<f.value?1:c.value>f.value?-1:0});let a=!0,b=!0;const l=m.reduce((c,f,p)=>{a&&0!==p&&(a=f.value===m[p-1].value-1);b&&0!==p&&(b=f.M===m[p-1].M);c[f.F]?c[f.F].push(f):c[f.F]=[f];return c},{});g=d[0];var e=b&&a;e&&l.N&&1===l.N.length?g=d[9]:e?g=d[8]:b?g=d[5]:a?g=d[4]:(e=Object.keys(l).reduce((c,f)=>{c[l[f].length].push(l[f]);return c},{1:[],2:[],3:[],4:[]}),1===e["4"].length?g=d[7]:1===e["2"].length&&1===e["3"].length?g=d[6]:1===
-e["3"].length?g=d[3]:2===e["2"].length?g=d[2]:1===e["2"].length&&e["2"][0].every(c=>8<c.value)&&(g=d[1]));return g};function P(g){function d(r,k,h){return r>=Math.min(k,h)&&r<=Math.max(k,h)}let m=!1,a,b,l,e,c,f,p,u,x="";return{b:function(r){r.save();r.fillStyle="#C35B68";r.L(a,b,c,f,p);r.fill();r.fillStyle="#DCB600";r.font=`${u}px "Fredoka One"`;r.fillText(x,l,e);r.restore()},a:function(r){x=r},m:function(r){var k;if(k=m)k=d(r.x,a,a+c)&&d(r.y,b,b+f);k&&g()},f:function(r){m=r},g:function({o:r,R:k,P:h,l:n,I:v,i:t}){a=r;b=k;l=n/2;e=k+h/2;c=v-t;f=h;p=Math.round(.1*f);u=Math.round(.66*f)}}};function N(g){let d=[],m=!1;return{b:function(a){d.forEach(b=>b.b(a))},ea:function(a){d[a].j(.16)},da:function(a){a.forEach(([b,l])=>{d[b].G(l);d[b].j(.16)})},X:function(){return d.map(a=>a.W())},fa:function(a,b){if(b)return d.reduce((l,e,c)=>l.then(()=>{e.G(a[c]);return e.j(.24)}),Promise.resolve());b=d.map((l,e)=>{l.G(a[e]);return l.j(.16)});return Promise.all(b).then(()=>d.reduce((l,e)=>l.then(()=>e.j(.24)),Promise.resolve()))},C:function(){d.forEach(a=>a.C())},D:function(){d=Array.from({length:5},
-()=>aa())},m:function(a){if(m){let b=0;for(;5>b&&!d[b].ba(a);b++);g(b)}},f:function(a){m=a},update:function(){d.forEach(a=>a.update())},g:function({v:a,A:b,i:l,o:e,u:c}){d.forEach((f,p)=>{f.g({T:e+p*(b+l),v:a,A:b,i:l,u:c})})}}};function aa(){function g(k,h,n){return k>=Math.min(h,n)&&k<=Math.max(h,n)}let d,m,a,b,l,e,c,f=!0,p=!1,u=1,x=-.16,r=()=>{};return{b:function(k){k.save();const h=b/2;k.translate(m+h,a);k.scale(u,1);k.fillStyle="white";k.L(-1*h,0,b,l-c,c);k.fill();k.font=`${l}px sans-serif`;k.textBaseline="top";k.textAlign="left";k.fillStyle=f?"#DCB600":d.color;k.fillText(f?"\ud83c\udcbf":d.ha,-1*h,e);k.restore()},j:function(k){x=-1*k;p=!0;return new Promise(h=>{r=h})},C:function(){f=!0},G:function(k){d=k},W:function(){return d},
-ba:function(k){return g(k.x,m,m+b)&&g(k.y,a,a+l)},update:function(){p&&(u+=x,0>=u?(u=0,x*=-1,f=!f):1<=u&&(u=1,x*=-1,p=!1,r()))},g:function({T:k,v:h,A:n,i:v,u:t}){a=t;m=k;b=n;l=h;e=v;c=e/2}}};function R(g,d,m){let a,b,l,e,c,f,p,u,x=!1,r=!1,k=!1,h=0,n=0,v=()=>{};return{b:function(t){if(r){const w=x?"#668706":"#DCB600",y=x?"YOU WON":"YOU LOSE",z=x?g:d;t.save();t.globalAlpha=h;t.fillStyle=w;t.fillRect(0,0,e,c);t.save();t.translate(p,u);t.scale(f,f);t.globalAlpha=n;t.drawImage(z,0,0);t.restore();1===h&&(t.font=`${l}px "Fredoka One"`,t.fillText(y,e/2,c/2+l/2));t.restore()}},show:function(t){x=t;return new Promise(w=>{v=w;setTimeout(()=>{k=r=!0},1E3)})},Z:function(){return new Promise(t=>{v=
-t;k=!1})},g:function({l:t,ch:w}){const y=Math.min(t,w);l=Math.round(.12*y);e=t;c=w;f=1;a=g.width*f;for(b=g.height*f;a>1.08*y;)f-=.002,a=g.width*f,b=g.height*f;p=(t-a)/2;u=(w-b)/2},update:function(){r&&(k?1===h?(n+=.01,1<=n&&(n=1,v())):(h+=.02,1<=h&&(h=1)):0===n?(h-=.02,0>=h&&(h=0,v())):(n-=.01,0>=n&&(n=0)))},m:function(){1===n&&m()}}};function Q(g,d){let m,a,b,l;return{b:function(e){e.save();e.scale(b,b);for(let c=0;14>c;c++)e.drawImage(c<m?g:d,(a*c+(a/2-l/2))/b,0);e.restore()},ga:function(e){m=e},g:function({l:e}){a=e/14;b=.06;for(l=g.width*b;l>a;)b-=.002,l=g.width*b}}};function O(g){let d="",m,a,b,{fill:l,stroke:e,textAlign:c,fontFamily:f="system"}=g;return{b:function(p){p.save();p.font=`${b}px ${f}`;p.fillStyle=l;c&&(p.textAlign=c);p.fillText(d,m,a);e&&(p.strokeStyle=e,p.strokeText(d,m,a));p.restore()},a:function(p){d=p},setPosition:function(p,u){m=p;a=u},H:function(p){b=p},ma:function(){}}};
+function getConstants() {
+    return {
+        hands: [
+            ['', 0],
+            ['Fours or Better Pair', 1],
+            ['Two Pair', 2],
+            ['Three of a Kind', 3],
+            ['Straight', 4],
+            ['Flush', 6],
+            ['Full House', 9],
+            ['Four of a Kind', 12],
+            ['Straight Flush', 15],
+            ['Royal Flush', 18],
+        ],
+        ranks: [
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            't',
+            'j',
+            'q',
+            'k',
+            'a',
+        ],
+        suits: ['s', 'h', 'c', 'd'],
+        colors: {
+            's': '#1F191B',
+            'c': '#1F191B',
+            'h': '#CB1728',
+            'd': '#CB1728',
+        },
+        stringMap: {
+            'as': '\ud83c\udca1',
+            'ah': '\ud83c\udcb1',
+            'ad': '\ud83c\udcc1',
+            'ac': '\ud83c\udcd1',
+            '2s': '\ud83c\udca2',
+            '2h': '\ud83c\udcb2',
+            '2d': '\ud83c\udcc2',
+            '2c': '\ud83c\udcd2',
+            '3s': '\ud83c\udca3',
+            '3h': '\ud83c\udcb3',
+            '3d': '\ud83c\udcc3',
+            '3c': '\ud83c\udcd3',
+            '4s': '\ud83c\udca4',
+            '4h': '\ud83c\udcb4',
+            '4d': '\ud83c\udcc4',
+            '4c': '\ud83c\udcd4',
+            '5s': '\ud83c\udca5',
+            '5h': '\ud83c\udcb5',
+            '5d': '\ud83c\udcc5',
+            '5c': '\ud83c\udcd5',
+            '6s': '\ud83c\udca6',
+            '6h': '\ud83c\udcb6',
+            '6d': '\ud83c\udcc6',
+            '6c': '\ud83c\udcd6',
+            '7s': '\ud83c\udca7',
+            '7h': '\ud83c\udcb7',
+            '7d': '\ud83c\udcc7',
+            '7c': '\ud83c\udcd7',
+            '8s': '\ud83c\udca8',
+            '8h': '\ud83c\udcb8',
+            '8d': '\ud83c\udcc8',
+            '8c': '\ud83c\udcd8',
+            '9s': '\ud83c\udca9',
+            '9h': '\ud83c\udcb9',
+            '9d': '\ud83c\udcc9',
+            '9c': '\ud83c\udcd9',
+            'ts': '\ud83c\udcaa',
+            'th': '\ud83c\udcba',
+            'td': '\ud83c\udcca',
+            'tc': '\ud83c\udcda',
+            'js': '\ud83c\udcab',
+            'jh': '\ud83c\udcbb',
+            'jd': '\ud83c\udccb',
+            'jc': '\ud83c\udcdb',
+            'qs': '\ud83c\udcad',
+            'qh': '\ud83c\udcbd',
+            'qd': '\ud83c\udccd',
+            'qc': '\ud83c\udcdd',
+            'ks': '\ud83c\udcae',
+            'kh': '\ud83c\udcbe',
+            'kd': '\ud83c\udcce',
+            'kc': '\ud83c\udcde',
+        },
+    };
+}
+
+function createGame(keyboard) {
+    const world = createWorld(onUpdateLayout);
+    const cardBlock = createCardBlock(onCardClick);
+    const balanceTF = createTextView({
+        fill: 'white',
+        fontFamily: 'Fredoka One',
+    });
+    const winTF = createTextView({
+        fill: 'white',
+        textAlign: 'right',
+    });
+    const handTF = createTextView({
+        fill: 'white',
+        textAlign: 'left',
+    });
+    const actionButton = createActionButton(onAction);
+
+    let bet = 1;
+    let balance = 411;
+    let isInit = true;
+    let deck;
+    let cardsToReplace;
+    let isComplete;
+    let lockKeyboard;
+    let teapots, resultPanel;
+
+    return { init };
+
+    function onUpdateLayout(data) {
+        const {
+            cw,
+            cardGap,
+            cardBlockX,
+            cardBlockW,
+            infoTextY,
+            balanceY,
+            fs1,
+            fs2,
+        } = data;
+        balanceTF.setPosition(cw / 2, balanceY);
+        balanceTF.setFontSize(fs1);
+
+        winTF.setPosition(cardBlockW + cardBlockX - cardGap, infoTextY);
+        winTF.setFontSize(fs2);
+
+        handTF.setPosition(cardBlockX, infoTextY);
+        handTF.setFontSize(fs2);
+    }
+
+    function init(teapot1, teapot2) {
+        teapots = createTeapots(teapot1, teapot2);
+        resultPanel = createResultPanel(teapot1, teapot2, onRestart);
+        world.add(
+            cardBlock,
+            winTF,
+            handTF,
+            actionButton,
+            teapots,
+            balanceTF,
+            resultPanel
+        );
+        cardBlock.init();
+        actionButton.setText('PLACE A BET');
+        displayBalance();
+        toNextRound();
+        world.start();
+    }
+
+    function onRestart() {
+        balance = 411;
+        isInit = true;
+        cardBlock.flipBack();
+        handTF.setText('');
+        winTF.setText('');
+        displayBalance();
+        toNextRound();
+        resultPanel.hide();
+    }
+
+    function enableControls() {
+        lockKeyboard = keyboard.subscribe(onKey);
+        actionButton.setInteractive(true);
+        cardBlock.setInteractive(true);
+    }
+
+    function disableControls() {
+        lockKeyboard();
+        actionButton.setInteractive(false);
+        cardBlock.setInteractive(false);
+    }
+
+    function onLose() {
+        resultPanel.show(false);
+    }
+
+    function onWin() {
+        resultPanel.show(true);
+    }
+
+    function placeBet() {
+        disableControls();
+        isComplete = false;
+        cardsToReplace = [];
+        balance -= bet;
+        deck = createDeck();
+        const cards = deck.deal(5);
+        cardBlock.setCards(cards, isInit).then(enableControls);
+        if (isInit) {
+            isInit = false;
+        }
+        displayBalance();
+        handTF.setText('');
+        winTF.setText('');
+        actionButton.setText('SUBMIT');
+    }
+
+    function displayBalance() {
+        balanceTF.setText(`BALANCE ${balance}`);
+        const diff = balance - 404;
+        const tn = diff > 14 ? 14 : diff > 0 ? diff : 0;
+        teapots.setNumber(tn);
+    }
+
+    function adjustBalance(actualBalance) {
+        if (actualBalance > 418) {
+            return 418;
+        }
+        return actualBalance;
+    }
+
+    function confirmSelection() {
+        const hand = cardBlock.getCards();
+        const [name, win] = rateHand(hand);
+        balance = adjustBalance(balance + win);
+        displayBalance();
+        handTF.setText(name);
+        if (win) {
+            winTF.setText(`Win ${win}`);
+        } else {
+            winTF.setText('Better luck next time');
+        }
+        if (balance === 418) {
+            onWin();
+        } else if (balance === 404) {
+            onLose();
+        } else {
+            toNextRound();
+        }
+    }
+
+    function onAction() {
+        if (isComplete) {
+            placeBet();
+        } else {
+            disableControls();
+            replaceCards();
+            confirmSelection();
+        }
+    }
+
+    function toNextRound() {
+        isComplete = true;
+        enableControls();
+        actionButton.setText('PLACE A BET');
+    }
+
+    function prepareDraw(index) {
+        const i = cardsToReplace.indexOf(index);
+        if (i === -1) {
+            actionButton.setText('DEAL AND SUBMIT');
+            cardsToReplace.push(index);
+            cardBlock.selectCard(index);
+        }
+    }
+
+    function replaceCards() {
+        if (cardsToReplace.length) {
+            const drawCards = deck.deal(cardsToReplace.length);
+            const drawData = cardsToReplace.map((index, i) => [
+                index,
+                drawCards[i],
+            ]);
+            cardBlock.replaceCards(drawData);
+        }
+    }
+
+    function onCardClick(i) {
+        if (!isComplete && i >= 0 && i < 5) {
+            prepareDraw(i);
+        }
+    }
+
+    function onKey(e) {
+        if (!isComplete && e.isDigit && e.digit > 0 && e.digit < 6) {
+            prepareDraw(e.digit - 1);
+        } else if (e.isSpace) {
+            onAction();
+        }
+    }
+}
+
+function createHelp() {
+    const help = document.querySelector('.help-outer');
+    let isShown = true;
+
+    return { toggle };
+
+    function toggle() {
+        isShown = !isShown;
+        help.style.display = isShown ? 'table' : 'none';
+    }
+}
+
+roundRectPolyfill();
+const isMobile = 'ontouchstart' in window;
+const keyboard = createKeyboard(isMobile);
+const game = createGame(keyboard);
+const help = createHelp();
+let isLoaded = false;
+
+// const sum = (arr) => arr.reduce((acc, num) => acc + num, 0);
+//
+// let n = 100000;
+// const res = [];
+// const hands = {};
+// for (let i = 0; i < n; i++) {
+//     const deck = createDeck();
+//     const hand = deck.deal(5);
+//     const [name, win] = rateHand(hand);
+//     res.push(win);
+//     if (hands[name]) {
+//         hands[name] += 1;
+//     } else {
+//         hands[name] = 1;
+//     }
+// }
+//
+// const av = sum(res) / res.length;
+// console.log(av);
+// Object.keys(hands).forEach((key) => {
+//     hands[key] = hands[key] / n;
+// });
+// console.log(hands);
+
+const teapot1 = new Image();
+teapot1.onload = init;
+teapot1.src = 'assets/teapot_y.svg';
+
+const teapot2 = new Image();
+teapot2.onload = init;
+teapot2.src = 'assets/teapot_p.svg';
+
+function init() {
+    if (isLoaded) {
+        keyboard.subscribe(onKeyup);
+        setTimeout(() => {
+            game.init(teapot1, teapot2);
+        }, 0);
+    } else {
+        isLoaded = true;
+    }
+}
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
+
+function onKeyup(e) {
+    if (e['isEscape']) {
+        help.toggle();
+        toggleFullScreen();
+    }
+}
+
+function createKeyboard(isMobile) {
+    let listeners = {};
+    let keys = [];
+    let lastTouch;
+
+    if (isMobile) {
+        window.addEventListener('touchstart', onStart);
+        window.addEventListener('touchend', onEnd);
+    } else {
+        window.addEventListener('keyup', handleKeyUp);
+    }
+
+    return {
+        subscribe,
+        reset,
+    };
+
+    function reset() {
+        listeners = {};
+        keys = [];
+    }
+
+    function handleKeyUp(e) {
+        const dig = Number(e.key);
+        const event = {};
+        if (isSpace(e.key)) {
+            event.isSpace = true;
+        } else if (isDigit(dig)) {
+            event.digit = dig;
+            event.isDigit = true;
+        } else {
+            event[`is${e.key}`] = true;
+        }
+        keys.forEach((key) => {
+            listeners[key](event);
+        });
+    }
+
+    function onStart(e) {
+        lastTouch = e.timeStamp;
+    }
+    function onEnd(e) {
+        const diff = e.timeStamp - lastTouch;
+        if (diff > 1000) {
+            const event = {
+                isEscape: true,
+            };
+            keys.forEach((key) => {
+                listeners[key](event);
+            });
+        }
+    }
+
+    function subscribe(listener) {
+        const key = Date.now();
+        listeners[key] = listener;
+        keys = Object.keys(listeners);
+
+        return function () {
+            delete listeners[key];
+            keys = Object.keys(listeners);
+        };
+    }
+
+    function isDigit(value) {
+        return Number.isInteger(value);
+    }
+
+    function isSpace(value) {
+        return value === ' ';
+    }
+}
+
+function roundRectPolyfill() {
+    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+        if (w < 2 * r) {
+            r = w / 2;
+        }
+        if (h < 2 * r) {
+            r = h / 2;
+        }
+        this.beginPath();
+        this.moveTo(x + r, y);
+        this.arcTo(x + w, y, x + w, y + h, r);
+        this.arcTo(x + w, y + h, x, y + h, r);
+        this.arcTo(x, y + h, x, y, r);
+        this.arcTo(x, y, x + w, y, r);
+        this.closePath();
+        return this;
+    };
+}
+
+function createWorld(onUpdateLayout) {
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    let objects = [];
+    let dynamicObjects = [];
+    let mouseListeners = [];
+    let resizeObjects = [];
+    let isStarted = false;
+
+    // ctx.save();
+    // ctx.fill();
+    // ctx.font = `100px system`;
+    // const back1 = '\ud83c\udcbf';
+    // const back2 = '\uD83C\uDCA0';
+    // const as = '\ud83c\udca1';
+    // let { width } = ctx.measureText(as);
+    // console.log(width);
+    // ctx.restore();
+
+    canvas.addEventListener('touchstart', onClick);
+    canvas.addEventListener('click', onClick);
+
+    window.addEventListener('resize', onResize);
+
+    function onResize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.lineJoin = 'round';
+
+        const isLandscape = canvas.width > canvas.height;
+
+        const cw = canvas.width;
+        const ch = canvas.height;
+        const buttonY = ch * 0.8;
+        let factor = 0.6;
+        let cardH = Math.round(ch * factor);
+        let cardW = Math.round(cardH * 0.66);
+        let cardGap = Math.round(cardH * 0.06);
+        let cardBlockW = 5 * (cardW + cardGap);
+
+        const fs1 = Math.round(ch * 0.045);
+        const fs2 = Math.round(fs1 * 0.75);
+
+        while (cardBlockW > cw) {
+            factor -= 0.05;
+            cardH = Math.round(ch * factor);
+            cardW = Math.round(cardH * 0.66);
+            cardGap = Math.round(cardH * 0.06);
+            cardBlockW = 5 * (cardW + cardGap);
+        }
+
+        const cardBlockX = (cw - cardBlockW + cardGap) / 2;
+        const cardBlockY = (ch - cardH) / 2;
+        const infoTextY = cardBlockY - fs2;
+        const balanceY = Math.min(cardBlockY - fs1 * 2, ch * 0.2);
+        const buttonHFactor = isLandscape ? 0.2 : 0.4;
+        const buttonH = Math.round(cardH * buttonHFactor);
+
+        const data = {
+            cw,
+            ch,
+            cardH,
+            cardW,
+            cardGap,
+            cardBlockW,
+            cardBlockX,
+            cardBlockY,
+            balanceY,
+            buttonY,
+            infoTextY,
+            buttonH,
+            fs1,
+            fs2,
+        };
+        resizeObjects.forEach((obj) => obj.updateLayout(data));
+        onUpdateLayout(data);
+    }
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.lineJoin = 'round';
+
+    requestAnimationFrame(loop);
+
+    return {
+        add,
+        start,
+        stop,
+    };
+
+    function start() {
+        onResize();
+        isStarted = true;
+    }
+
+    function stop() {
+        isStarted = false;
+    }
+
+    function add(...args) {
+        args.forEach((o) => addObj(o));
+    }
+
+    function addObj(obj) {
+        objects.push(obj);
+        if (typeof obj.mouseListener === 'function') {
+            mouseListeners.push(obj.mouseListener);
+        }
+        if (typeof obj.update === 'function') {
+            dynamicObjects.push(obj);
+        }
+        if (typeof obj.updateLayout === 'function') {
+            resizeObjects.push(obj);
+        }
+    }
+
+    function onClick(e) {
+        const mouse = getMousePosition(e);
+        mouseListeners.forEach((listener) => listener(mouse));
+    }
+
+    function getMousePosition(e) {
+        const bcr = canvas.getBoundingClientRect();
+        return {
+            x: e.pageX - bcr.left,
+            y: e.pageY - bcr.top,
+        };
+    }
+
+    function loop(t) {
+        if (isStarted) {
+            update(t);
+            clear();
+            render();
+        }
+        requestAnimationFrame(loop);
+    }
+
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function update(t) {
+        dynamicObjects.forEach((obj) => obj.update(t));
+    }
+
+    function render() {
+        objects.forEach((obj) => obj.render(ctx));
+    }
+}
+
+function createCard(rank, suit) {
+    const { stringMap, ranks, colors } = getConstants();
+    return {
+        rank,
+        suit,
+        value: ranks.indexOf(rank),
+        string: stringMap[rank + suit],
+        color: colors[suit],
+    };
+}
+
+function createDeck() {
+    const { suits, ranks } = getConstants();
+    const cards = suits.reduce((result, suit) => {
+        const cardsWithRank = ranks.map((rank) => createCard(rank, suit));
+        return [...result, ...cardsWithRank];
+    }, []);
+
+    for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+
+    function deal(num) {
+        return cards.splice(num * -1);
+    }
+
+    return { deal };
+}
+
+function rateHand(cards) {
+    const { hands } = getConstants();
+    const pool = [...cards].sort(valueComparator);
+    let isStraight = true;
+    let isFlush = true;
+
+    const kinds = pool.reduce((result, card, index) => {
+        if (isStraight && index !== 0) {
+            isStraight = card.value === pool[index - 1].value - 1;
+        }
+        if (isFlush && index !== 0) {
+            isFlush = card.suit === pool[index - 1].suit;
+        }
+        if (result[card.rank]) {
+            result[card.rank].push(card);
+        } else {
+            result[card.rank] = [card];
+        }
+        return result;
+    }, {});
+
+    let rate = hands[0];
+
+    const isStraightFlush = isFlush && isStraight;
+    const isRoyalFlush = isStraightFlush && kinds.a && kinds.a.length === 1;
+    if (isRoyalFlush) {
+        rate = hands[9];
+    } else if (isStraightFlush) {
+        rate = hands[8];
+    } else if (isFlush) {
+        rate = hands[5];
+    } else if (isStraight) {
+        rate = hands[4];
+    } else {
+        const rb /* repetition buckets*/ = Object.keys(kinds).reduce(
+            (result, rank) => {
+                const len = kinds[rank].length;
+                result[len].push(kinds[rank]);
+                return result;
+            },
+            { '1': [], '2': [], '3': [], '4': [] }
+        );
+
+        if (rb['4'].length === 1) {
+            rate = hands[7];
+        } else if (rb['2'].length === 1 && rb['3'].length === 1) {
+            rate = hands[6];
+        } else if (rb['3'].length === 1) {
+            rate = hands[3];
+        } else if (rb['2'].length === 2) {
+            rate = hands[2];
+        } else if (rb['2'].length === 1) {
+            const isBetter = rb['2'][0].every((card) => card.value > 2);
+            if (isBetter) {
+                rate = hands[1];
+            }
+        }
+    }
+
+    return rate;
+
+    function valueComparator(card1, card2) {
+        if (card1.value < card2.value) {
+            return 1;
+        }
+        if (card1.value > card2.value) {
+            return -1;
+        }
+        return 0;
+    }
+}
+
+function createActionButton(listener) {
+    let isInteractive = false;
+    let x,
+        y,
+        cx,
+        cy,
+        w,
+        h,
+        r,
+        fs,
+        text = '';
+
+    return {
+        render,
+        setText,
+        mouseListener,
+        setInteractive,
+        updateLayout,
+    };
+
+    function updateLayout({
+        cardBlockX,
+        buttonY,
+        buttonH,
+        cw,
+        cardBlockW,
+        cardGap,
+    }) {
+        x = cardBlockX;
+        y = buttonY;
+        cx = cw / 2;
+        cy = buttonY + buttonH / 2;
+        w = cardBlockW - cardGap;
+        h = buttonH;
+        r = Math.round(h * 0.1);
+        fs = Math.round(h * 0.66);
+    }
+
+    function setInteractive(isActive) {
+        isInteractive = isActive;
+    }
+
+    function setText(t) {
+        text = t;
+    }
+
+    function mouseListener(point) {
+        if (isInteractive && isPointInside(point)) {
+            listener();
+        }
+    }
+
+    function isPointInside(point) {
+        return inRange(point.x, x, x + w) && inRange(point.y, y, y + h);
+    }
+
+    function inRange(value, min, max) {
+        return value >= Math.min(min, max) && value <= Math.max(min, max);
+    }
+
+    function render(ctx) {
+        ctx.save();
+        ctx.fillStyle = '#C35B68';
+        ctx.roundRect(x, y, w, h, r);
+        ctx.fill();
+        ctx.fillStyle = '#DCB600';
+        ctx.font = `${fs}px "Fredoka One"`;
+        ctx.fillText(text, cx, cy);
+        ctx.restore();
+    }
+}
+
+function createCardBlock(onCardClick) {
+    let cardViews = [];
+    let isInteractive = false;
+
+    return {
+        render,
+        selectCard,
+        replaceCards,
+        getCards,
+        setCards,
+        flipBack,
+        init,
+        mouseListener,
+        setInteractive,
+        update,
+        updateLayout,
+    };
+
+    function updateLayout({ cardH, cardW, cardGap, cardBlockX, cardBlockY }) {
+        cardViews.forEach((view, i) => {
+            const cx = cardBlockX + i * (cardW + cardGap);
+            view.updateLayout({
+                cx,
+                cardH,
+                cardW,
+                cardGap,
+                cardBlockY,
+            });
+        });
+    }
+
+    function setInteractive(isActive) {
+        isInteractive = isActive;
+    }
+
+    function mouseListener(mouse) {
+        if (isInteractive) {
+            let i = 0;
+            for (; i < 5; i++) {
+                if (cardViews[i].isPointInside(mouse)) {
+                    break;
+                }
+            }
+            onCardClick(i);
+        }
+    }
+
+    function init() {
+        cardViews = Array.from({ length: 5 }, () => createCardView());
+    }
+
+    function update() {
+        cardViews.forEach((view) => view.update());
+    }
+
+    function setCards(cards, isInit) {
+        if (isInit) {
+            return cardViews.reduce((accumulatorPromise, view, i) => {
+                return accumulatorPromise.then(() => {
+                    view.setCard(cards[i]);
+                    return view.flip(0.24);
+                });
+            }, Promise.resolve());
+        }
+        const tasks = cardViews.map((view, i) => {
+            view.setCard(cards[i]);
+            return view.flip(0.16);
+        });
+        return Promise.all(tasks).then(() => {
+            return cardViews.reduce((accumulatorPromise, view) => {
+                return accumulatorPromise.then(() => {
+                    return view.flip(0.24);
+                });
+            }, Promise.resolve());
+        });
+    }
+
+    function flipBack() {
+        cardViews.forEach((view) => view.flipBack());
+    }
+
+    function render(ctx) {
+        cardViews.forEach((view) => view.render(ctx));
+    }
+
+    function selectCard(index) {
+        cardViews[index].flip(0.16);
+    }
+
+    function replaceCards(drawData) {
+        drawData.forEach(([index, card]) => {
+            cardViews[index].setCard(card);
+            cardViews[index].flip(0.16);
+        });
+    }
+
+    function getCards() {
+        return cardViews.map((view) => view.getCard());
+    }
+}
+
+function createCardView() {
+    let card, x, y, w, h, margin, halfMargin;
+    // const back = '\ud83c\udcbf';
+    const back = '\uD83C\uDCA0';
+
+    let isFlipped = true;
+    let isSwap = false;
+    let scaleX = 1;
+    let add = -0.16;
+    let flipResolver = () => {};
+    const isFF = navigator.userAgent.includes('Firefox');
+
+    return {
+        render,
+        flip,
+        flipBack,
+        setCard,
+        getCard,
+        isPointInside,
+        update,
+        updateLayout,
+    };
+
+    function updateLayout({ cx, cardH, cardW, cardGap, cardBlockY }) {
+        y = cardBlockY;
+        x = cx;
+        w = cardW;
+        h = cardH;
+        margin = isFF ? cardGap / 2 : cardGap;
+        halfMargin = cardGap / 2;
+    }
+
+    function isPointInside(point) {
+        return inRange(point.x, x, x + w) && inRange(point.y, y, y + h);
+    }
+
+    function inRange(value, min, max) {
+        return value >= Math.min(min, max) && value <= Math.max(min, max);
+    }
+
+    function render(ctx) {
+        ctx.save();
+        const shiftX = w / 2;
+        ctx.translate(x + shiftX, y);
+        ctx.scale(scaleX, 1);
+        ctx.fillStyle = 'white';
+        ctx.roundRect(shiftX * -1, 0, w, h - halfMargin, halfMargin);
+        ctx.fill();
+        ctx.font = `${h}px system`;
+        ctx.textBaseline = 'top';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = isFlipped ? '#DCB600' : card.color;
+        const text = isFlipped ? back : card.string;
+        ctx.fillText(text, shiftX * -1, margin);
+
+        ctx.restore();
+    }
+
+    function update() {
+        if (isSwap) {
+            scaleX += add;
+            if (scaleX <= 0) {
+                scaleX = 0;
+                add *= -1;
+                isFlipped = !isFlipped;
+            } else if (scaleX >= 1) {
+                scaleX = 1;
+                add *= -1;
+                isSwap = false;
+                flipResolver();
+            }
+        }
+    }
+
+    function setCard(cd) {
+        card = cd;
+    }
+
+    function getCard() {
+        return card;
+    }
+
+    function flip(dt) {
+        add = -1 * dt;
+        isSwap = true;
+        return new Promise((resolve) => {
+            flipResolver = resolve;
+        });
+    }
+
+    function flipBack() {
+        isFlipped = true;
+    }
+}
+
+function createResultPanel(winTexture, loseTexture, onRestart) {
+    let w, h, fs, centerW, centerH, scale, origX, origY;
+    let isWin = false;
+    let isShown = false;
+    let isShowing = false;
+    let alpha = 0;
+    let teapotAlpha = 0;
+    let showResolver = () => {};
+    // show(true);
+    return {
+        render,
+        show,
+        hide,
+        updateLayout,
+        update,
+        mouseListener,
+    };
+
+    function mouseListener() {
+        if (teapotAlpha === 1) {
+            onRestart();
+        }
+    }
+
+    function updateLayout({ cw, ch }) {
+        const minSide = Math.min(cw, ch);
+        fs = Math.round(minSide * 0.12);
+        centerW = cw;
+        centerH = ch;
+        scale = 1;
+        w = winTexture.width * scale;
+        h = winTexture.height * scale;
+        while (w > minSide * 1.08) {
+            scale -= 0.002;
+            w = winTexture.width * scale;
+            h = winTexture.height * scale;
+        }
+
+        origX = (cw - w) / 2;
+        origY = (ch - h) / 2;
+    }
+
+    function show(isW) {
+        isWin = isW;
+        return new Promise((resolve) => {
+            showResolver = resolve;
+            setTimeout(() => {
+                isShown = true;
+                isShowing = true;
+            }, 1000);
+        });
+    }
+
+    function hide() {
+        return new Promise((resolve) => {
+            showResolver = resolve;
+            isShowing = false;
+        });
+    }
+
+    function update() {
+        if (isShown) {
+            if (isShowing) {
+                if (alpha === 1) {
+                    teapotAlpha += 0.01;
+                    if (teapotAlpha >= 1) {
+                        teapotAlpha = 1;
+                        showResolver();
+                    }
+                } else {
+                    alpha += 0.02;
+                    if (alpha >= 1) {
+                        alpha = 1;
+                    }
+                }
+            } else {
+                if (teapotAlpha === 0) {
+                    alpha -= 0.02;
+                    if (alpha <= 0) {
+                        alpha = 0;
+                        showResolver();
+                    }
+                } else {
+                    teapotAlpha -= 0.01;
+                    if (teapotAlpha <= 0) {
+                        teapotAlpha = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    function render(ctx) {
+        if (isShown) {
+            const color = isWin ? '#668706' : '#DCB600';
+            const text = isWin ? 'YOU WON' : 'YOU LOSE';
+            const texture = isWin ? winTexture : loseTexture;
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, centerW, centerH);
+            ctx.save();
+            ctx.translate(origX, origY);
+            ctx.scale(scale, scale);
+            ctx.globalAlpha = teapotAlpha;
+            ctx.drawImage(texture, 0, 0);
+            ctx.restore();
+            if (alpha === 1) {
+                ctx.font = `${fs}px "Fredoka One"`;
+                ctx.fillText(text, centerW / 2, centerH / 2 + fs / 2);
+            }
+            ctx.restore();
+        }
+    }
+}
+
+function createTeapots(img1, img2) {
+    let num, dx, scale, w;
+
+    return {
+        render,
+        setNumber,
+        updateLayout,
+    };
+
+    function updateLayout({ cw }) {
+        dx = cw / 14;
+        scale = 0.06;
+        w = img1.width * scale;
+        while (w > dx) {
+            scale -= 0.002;
+            w = img1.width * scale;
+        }
+    }
+
+    function setNumber(n) {
+        num = n;
+    }
+
+    function render(ctx) {
+        ctx.save();
+        ctx.scale(scale, scale);
+        for (let i = 0; i < 14; i++) {
+            const f = dx / 2 - w / 2;
+            let img = i < num ? img1 : img2;
+            ctx.drawImage(img, (dx * i + f) / scale, 0);
+        }
+        ctx.restore();
+    }
+}
+
+function createTextView(style) {
+    let text = '',
+        x,
+        y,
+        fs;
+    let { fill, stroke, textAlign, fontFamily = 'system' } = style;
+
+    return {
+        render,
+        setText,
+        setPosition,
+        setFontSize,
+        setContext,
+    };
+
+    function setText(t) {
+        text = t;
+    }
+
+    function setPosition(nx, ny) {
+        x = nx;
+        y = ny;
+    }
+
+    function setFontSize(fontSize) {
+        fs = fontSize;
+    }
+
+    function render(ctx) {
+        ctx.save();
+        ctx.font = `${fs}px ${fontFamily}`;
+        ctx.fillStyle = fill;
+        if (textAlign) {
+            ctx.textAlign = textAlign;
+        }
+        ctx.fillText(text, x, y);
+        if (stroke) {
+            ctx.strokeStyle = stroke;
+            ctx.strokeText(text, x, y);
+        }
+        ctx.restore();
+    }
+
+    function setContext(c) {
+        // ctx = c;
+    }
+}

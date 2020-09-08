@@ -52,11 +52,11 @@ function createGame(keyboard) {
         resultPanel = createResultPanel(teapot1, teapot2, onRestart);
         world.add(
             cardBlock,
-            balanceTF,
             winTF,
             handTF,
             actionButton,
             teapots,
+            balanceTF,
             resultPanel
         );
         cardBlock.init();
