@@ -21,8 +21,8 @@ function createCardView() {
         updateLayout,
     };
 
-    function updateLayout({ cx, cardH, cardW, cardGap, cardBlockY }) {
-        y = cardBlockY;
+    function updateLayout({ cx, cy, cardH, cardW, cardGap, cardBlockY }) {
+        y = cy;
         x = cx;
         w = cardW;
         h = cardH;

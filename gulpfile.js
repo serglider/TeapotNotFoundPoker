@@ -8,14 +8,14 @@ const zip = require('gulp-zip');
 const cleanCSS = require('gulp-clean-css');
 
 function cleanDist(done) {
-    del.sync(['dist']);
+    del.sync(['docs']);
     return done();
 }
 
 function archive() {
     const d = new Date();
     const version = `${d.getMonth() + 1}_${d.getDate()}_${d.getHours()}`;
-    return src('dist/**/*')
+    return src('docs/**/*')
         .pipe(zip(`app_${version}.zip`))
         .pipe(dest('submission'));
 }

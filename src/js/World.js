@@ -42,23 +42,25 @@ function createWorld(onUpdateLayout) {
 
         const fs1 = Math.round(ch * 0.045);
         const fs2 = Math.round(fs1 * 0.75);
+        const cardsInRow = isLandscape ? 5 : 3;
 
         while (cardBlockW > cw) {
             factor -= 0.05;
             cardH = Math.round(ch * factor);
             cardW = Math.round(cardH * 0.66);
             cardGap = Math.round(cardH * 0.06);
-            cardBlockW = 5 * (cardW + cardGap);
+            cardBlockW = cardsInRow * (cardW + cardGap);
         }
 
         const cardBlockX = (cw - cardBlockW + cardGap) / 2;
-        const cardBlockY = (ch - cardH) / 2;
+        const cardBlockY = isLandscape ? (ch - cardH) / 2 : ch / 2 - cardH;
         const infoTextY = cardBlockY - fs2;
         const balanceY = Math.min(cardBlockY - fs1 * 2, ch * 0.2);
-        const buttonHFactor = isLandscape ? 0.2 : 0.4;
+        const buttonHFactor = isLandscape ? 0.2 : 0.34;
         const buttonH = Math.round(cardH * buttonHFactor);
 
         const data = {
+            cardsInRow,
             cw,
             ch,
             cardH,

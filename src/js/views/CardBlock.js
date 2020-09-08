@@ -16,15 +16,32 @@ function createCardBlock(onCardClick) {
         updateLayout,
     };
 
-    function updateLayout({ cardH, cardW, cardGap, cardBlockX, cardBlockY }) {
+    function updateLayout({
+        cardH,
+        cardW,
+        cardGap,
+        cardBlockX,
+        cardBlockY,
+        cardsInRow,
+    }) {
         cardViews.forEach((view, i) => {
-            const cx = cardBlockX + i * (cardW + cardGap);
+            let cx, cy;
+            const row = Math.floor(i / cardsInRow);
+            cy = cardBlockY + row * (cardH + cardGap);
+            if (i < cardsInRow) {
+                cx = cardBlockX + i * (cardW + cardGap);
+            } else {
+                cx =
+                    cardBlockX +
+                    cardW / 2 +
+                    (i - cardsInRow) * (cardW + cardGap);
+            }
             view.updateLayout({
                 cx,
+                cy,
                 cardH,
                 cardW,
                 cardGap,
-                cardBlockY,
             });
         });
     }
